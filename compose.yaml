@@ -1,0 +1,41 @@
+services:
+  mysql-app:
+    build: ./docker/mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: db
+      MYSQL_USER: db
+      MYSQL_PASSWORD: db
+      MYSQL_ROOT_PASSWORD: db
+    ports:
+      - 3306:3306
+    user: 1000:1000
+    volumes:
+      - ./docker/mysql/conf.d:/etc/mysql/conf.d
+      - ./docker/mysql/log/app:/var/log/mysql
+      - ./docker/mysql/db:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mysql-test:
+    build: ./docker/mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: db
+      MYSQL_USER: db
+      MYSQL_PASSWORD: db
+      MYSQL_ROOT_PASSWORD: db
+    ports:
+      - 3307:3306
+    user: 1000:1000
+    volumes:
+      - ./docker/mysql/conf.d:/etc/mysql/conf.d
+      - ./docker/mysql/log/test:/var/log/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5

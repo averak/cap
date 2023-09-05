@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="TIME_ZONE" value="UTC"/>
+    <property name="SEPARATOR" value="UNIX"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <timeZone>${TIME_ZONE}</timeZone>
+            <fieldNames>
+                <timestamp>timestamp</timestamp>
+                <logger>logger</logger>
+                <version>[ignore]</version>
+                <thread>[ignore]</thread>
+                <levelValue>[ignore]</levelValue>
+            </fieldNames>
+            <lineSeparator>${SEPARATOR}</lineSeparator>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>

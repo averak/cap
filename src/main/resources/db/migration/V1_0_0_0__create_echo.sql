@@ -1,0 +1,18 @@
+CREATE TABLE IF NOT EXISTS `echo`
+(
+    `id`         CHAR(26)     NOT NULL,
+    `message`    VARCHAR(255) NOT NULL,
+    `timestamp`  DATETIME     NOT NULL,
+    `created_at` DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`)
+)
+    ENGINE = InnoDB;
+
+CREATE EVENT echo_ttl
+    ON SCHEDULE EVERY 1 DAY
+        STARTS CURRENT_TIMESTAMP
+    DO
+    DELETE
+    FROM `echo`
+    WHERE `created_at` <= CURRENT_TIMESTAMP;

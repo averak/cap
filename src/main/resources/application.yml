@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: ${MYSQL_URL:jdbc:mysql://localhost:3306/db?useSSL=false&allowPublicKeyRetrieval=true&enabledTLSProtocols=TLSv1.2}
+    username: ${MYSQL_USERNAME:db}
+    password: ${MYSQL_PASSWORD:db}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+  jackson:
+    date-format: yyyy-MM-dd'T'HH:mm:ss'Z'
+    time-zone: UTC
+  flyway:
+    baselineOnMigrate: true
+    validateOnMigrate: false
+    outOfOrder: false
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    locations: classpath:db/migration
+    connect-retries: 5
+    enabled: true
