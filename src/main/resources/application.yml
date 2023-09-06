@@ -11,9 +11,6 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-  messages:
-    basename: i18n/messages
-    encoding: UTF-8
   jackson:
     date-format: yyyy-MM-dd'T'HH:mm:ss'Z'
     time-zone: UTC

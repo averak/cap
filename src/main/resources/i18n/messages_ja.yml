@@ -1,0 +1,2 @@
+internal_server_error:
+  unexpected_exception: "予期しないエラーが発生しました。問題が解決しない場合は、管理者までご連絡ください。"
