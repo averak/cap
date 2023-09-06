@@ -27,3 +27,10 @@ spring:
     locations: classpath:db/migration
     connect-retries: 5
     enabled: true
+
+mybatis:
+  configuration:
+    mapUnderscoreToCamelCase: true
+  mapperLocations:
+    - classpath:/db/mapper/base/*Mapper.xml
+    - classpath:/db/mapper/extend/*Mapper.xml
