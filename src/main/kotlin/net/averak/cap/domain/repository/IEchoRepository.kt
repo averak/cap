@@ -5,5 +5,5 @@ import net.averak.cap.domain.model.Echo
 interface IEchoRepository {
 
     fun save(echo: Echo)
-   
+
 }
