@@ -7,5 +7,5 @@ enum class InterceptorPriority {
     MEDIUM,
 
     LOW,
-   
+
 }
