@@ -1,6 +1,6 @@
 package net.averak.cap.domain.primitive
 
-import de.huxhorn.sulky.ulid.ULID
+import net.averak.cap.core.utils.IDUtils
 
 class ID(val value: String) {
 
@@ -10,6 +10,6 @@ class ID(val value: String) {
         }
     }
 
-    constructor() : this(ULID().nextULID())
+    constructor() : this(IDUtils.generateULID())
 
 }
