@@ -1,6 +1,6 @@
 package net.averak.cap.domain.model
 
-import net.averak.cap.domain.primitive.ID
+import net.averak.cap.domain.primitive.common.ID
 import net.averak.cap.domain.primitive.echo.EchoMessage
 import java.time.LocalDateTime
 
