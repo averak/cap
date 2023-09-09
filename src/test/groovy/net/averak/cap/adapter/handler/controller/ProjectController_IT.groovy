@@ -26,6 +26,7 @@ class ProjectController_IT extends AbstractController_IT {
     static final String GET_PROJECTS_PATH = BASE_PATH
     static final String GET_PROJECT_PATH = BASE_PATH + "/%s"
     static final String CREATE_PROJECT_PATH = BASE_PATH
+    static final String EDIT_PROJECT_PATH = BASE_PATH + "/%s"
 
     def "プロジェクトリスト取得API: 正常系 プロジェクトリストを取得できる"() {
         given:
@@ -138,6 +139,15 @@ class ProjectController_IT extends AbstractController_IT {
         }
     }
 
+    def "プロジェクト作成API: 異常系 ログインしていない場合は401エラー"() {
+        given:
+        final requestBody = Faker.fake(ProjectUpsertRequest)
+
+        expect:
+        final request = this.postRequest(CREATE_PROJECT_PATH, requestBody)
+        this.execute(request, new UnauthorizedException(NOT_LOGGED_IN))
+    }
+
     def "プロジェクト作成API: 異常系 プロジェクト名が既に使用されている場合は409エラー"() {
         given:
         this.login()
@@ -150,10 +160,66 @@ class ProjectController_IT extends AbstractController_IT {
         this.execute(request, new ConflictException(PROJECT_NAME_IS_ALREADY_USED))
     }
 
-    def "プロジェクト作成API: 異常系 ログインしていない場合は401エラー"() {
+    def "プロジェクト編集API: 正常系 プロジェクトを編集できる"() {
+        given:
+        this.login()
+
+        final requestBody = Faker.fake(ProjectUpsertRequest)
+        final id = Faker.fake(ID)
+        DBUtils.insert(Fixture.of(ProjectEntity, [id: id.value, name: requestBody.name]))
+
+        when:
+        final request = this.putRequest(String.format(EDIT_PROJECT_PATH, id.value), requestBody)
+        this.execute(request, HttpStatus.OK)
+
+        then:
+        sql.rows("SELECT * FROM project").size() == 1
+        with(sql.firstRow("SELECT * FROM project WHERE id=:id", [id: id.value])) {
+            it.name == requestBody.name
+            it.docker_image_url == requestBody.dockerImage.url
+            it.docker_image_tag == requestBody.dockerImage.tag
+            it.container_port == requestBody.containerPort
+            it.host_port == requestBody.hostPort
+        }
+
+        with(sql.rows("SELECT * FROM cron_job WHERE project_id=:project_id", [project_id: id.value])) {
+            it.expression == requestBody.cronJobs*.expression
+            it.command == requestBody.cronJobs*.command
+            it.docker_image_url == requestBody.cronJobs*.dockerImage*.url
+            it.docker_image_tag == requestBody.cronJobs*.dockerImage*.tag
+        }
+    }
+
+    def "プロジェクト編集API: 異常系 ログインしていない場合は401エラー"() {
+        given:
+        final requestBody = Faker.fake(ProjectUpsertRequest)
+
         expect:
-        final request = this.postRequest(CREATE_PROJECT_PATH, Faker.fake(ProjectUpsertRequest))
+        final request = this.putRequest(String.format(EDIT_PROJECT_PATH, Faker.fake(ID).value), requestBody)
         this.execute(request, new UnauthorizedException(NOT_LOGGED_IN))
+    }
+
+    def "プロジェクト編集API: 異常系 プロジェクトが存在しない場合は404エラー"() {
+        given:
+        this.login()
+
+        final requestBody = Faker.fake(ProjectUpsertRequest)
+
+        expect:
+        final request = this.putRequest(String.format(EDIT_PROJECT_PATH, Faker.fake(ID).value), requestBody)
+        this.execute(request, new ConflictException(PROJECT_NAME_IS_ALREADY_USED))
+    }
+
+    def "プロジェクト編集API: 異常系 プロジェクト名が既に使用されている場合は409エラー"() {
+        given:
+        this.login()
+
+        final requestBody = Faker.fake(ProjectUpsertRequest)
+        DBUtils.insert(Fixture.of(ProjectEntity, [name: requestBody.name]))
+
+        expect:
+        final request = this.putRequest(String.format(EDIT_PROJECT_PATH, Faker.fake(ID).value), requestBody)
+        this.execute(request, new ConflictException(PROJECT_NAME_IS_ALREADY_USED))
     }
 
 }

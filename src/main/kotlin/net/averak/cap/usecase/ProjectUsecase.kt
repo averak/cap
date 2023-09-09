@@ -33,7 +33,14 @@ class ProjectUsecase(
     }
 
     fun editProject(project: Project) {
-        // TODO: #13 ProjectUsecase::editProject を実装
+        val oldProject = this.projectRepository.findById(project.id)
+            ?: throw NotFoundException(NotFoundException.ErrorCode.NOT_FOUND_PROJECT)
+
+        if (oldProject.name != project.name && this.projectService.isNameAlreadyUsed(project.name)) {
+            throw ConflictException(PROJECT_NAME_IS_ALREADY_USED)
+        }
+
+        this.projectRepository.save(project)
     }
 
     fun deleteProject(projectID: ID) {
