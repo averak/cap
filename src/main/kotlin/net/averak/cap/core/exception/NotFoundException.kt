@@ -10,6 +10,8 @@ class NotFoundException(errorCode: ErrorCode) : AbstractException(HttpStatus.NOT
 
         NOT_FOUND_API("not_found.api"),
 
+        NOT_FOUND_PROJECT("not_found.project"),
+
     }
 
 }
