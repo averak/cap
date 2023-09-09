@@ -8,6 +8,11 @@ class BadRequestException(errorCode: ErrorCode) : AbstractException(HttpStatus.B
         override val messageSourceKey: String
     ) : IErrorCode {
 
+        // 汎用エラー
+        VALIDATION_ERROR("bad_request.validation_error"),
+
+        INVALID_REQUEST_PARAMETER("bad_request.invalid_request_parameter"),
+
         // Cron Job
         CRON_JOB_COMMAND_IS_INVALID("bad_request.cron_job.command_is_invalid"),
 

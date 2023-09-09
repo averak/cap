@@ -39,7 +39,7 @@ open class WebSecurityConfig(
                 .requestMatchers("/api/health").access(
                     this.hasAnyIpAddress(this.ipAddressWhitelistProperty.healthcheckApi)
                 )
-                .requestMatchers("/api/**").permitAll()
+                .requestMatchers("/api/**").hasRole("USER")
                 // 静的コンテンツ
                 .requestMatchers("/v3/api-docs/**", "/swagger-resources/**", "/swagger-ui/**", "/webjars/**")
                 .permitAll() //

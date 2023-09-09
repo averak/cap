@@ -2,7 +2,7 @@ package net.averak.cap.core.exception
 
 import org.springframework.http.HttpStatus
 
-class ForbiddenException(errorCode: ErrorCode) : AbstractException(HttpStatus.BAD_REQUEST, errorCode, null) {
+class ForbiddenException(errorCode: ErrorCode) : AbstractException(HttpStatus.FORBIDDEN, errorCode, null) {
 
     enum class ErrorCode(
         override val messageSourceKey: String

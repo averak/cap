@@ -34,4 +34,5 @@ mybatis:
 
 ip-address-whitelist:
   healthcheck-api:
-    - 0:0:0:0:0:0:0:1
+    - 127.0.0.1
+    - ::1

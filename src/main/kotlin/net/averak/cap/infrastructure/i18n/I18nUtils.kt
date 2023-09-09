@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
-class MessageUtils {
+class I18nUtils {
 
     companion object {
 
@@ -29,7 +29,7 @@ class MessageUtils {
 
     @Autowired
     fun setMessageSource(messageSource: MessageSource) {
-        MessageUtils.messageSource = messageSource
+        I18nUtils.messageSource = messageSource
     }
 
 }

@@ -1,4 +1,6 @@
 bad_request:
+  validation_error: "不正なリクエストです。問題が解決しない場合は、管理者までご連絡ください。"
+  invalid_request_parameter: "不正なリクエストです。問題が解決しない場合は、管理者までご連絡ください。"
   cron_job:
     command_is_invalid: "コマンドは1~500文字で指定する必要があります。"
     expression_is_invalid: "不正なcron式が指定されました。"
