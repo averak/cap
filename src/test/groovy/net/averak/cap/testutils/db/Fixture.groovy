@@ -20,7 +20,7 @@ class Fixture<T> {
     /**
      * Fixture を作成
      *
-     * デフォルトだと test_helper.random.randomizer.db に定義されているランダマイザーで生成された値がカラムに入る
+     * デフォルトだと testutils.randomizer.db に定義されているランダマイザーで生成された値がカラムに入る
      * 外部キー制約を持つカラムには適当な値が入っているため、必ず整合性の取れた値を指定すること
      *
      * @param clazz clazz
