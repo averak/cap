@@ -3,8 +3,10 @@ package net.averak.cap.adapter.handler.controller
 import net.averak.cap.adapter.dao.entity.base.CronJobEntity
 import net.averak.cap.adapter.dao.entity.base.ProjectEntity
 import net.averak.cap.adapter.handler.AbstractController_IT
-import net.averak.cap.adapter.handler.schema.ProjectResponse
-import net.averak.cap.adapter.handler.schema.ProjectsResponse
+import net.averak.cap.adapter.handler.schema.request.ProjectUpsertRequest
+import net.averak.cap.adapter.handler.schema.response.ProjectResponse
+import net.averak.cap.adapter.handler.schema.response.ProjectsResponse
+import net.averak.cap.core.exception.ConflictException
 import net.averak.cap.core.exception.NotFoundException
 import net.averak.cap.core.exception.UnauthorizedException
 import net.averak.cap.domain.primitive.common.ID
@@ -13,6 +15,7 @@ import net.averak.cap.testutils.db.DBUtils
 import net.averak.cap.testutils.db.Fixture
 import org.springframework.http.HttpStatus
 
+import static net.averak.cap.core.exception.ConflictException.ErrorCode.PROJECT_NAME_IS_ALREADY_USED
 import static net.averak.cap.core.exception.NotFoundException.ErrorCode.NOT_FOUND_PROJECT
 import static net.averak.cap.core.exception.UnauthorizedException.ErrorCode.NOT_LOGGED_IN
 
@@ -22,6 +25,7 @@ class ProjectController_IT extends AbstractController_IT {
     static final String BASE_PATH = "/api/projects"
     static final String GET_PROJECTS_PATH = BASE_PATH
     static final String GET_PROJECT_PATH = BASE_PATH + "/%s"
+    static final String CREATE_PROJECT_PATH = BASE_PATH
 
     def "プロジェクトリスト取得API: 正常系 プロジェクトリストを取得できる"() {
         given:
@@ -105,6 +109,51 @@ class ProjectController_IT extends AbstractController_IT {
         expect:
         final request = this.getRequest(String.format(GET_PROJECT_PATH, Faker.fake(ID).value))
         this.execute(request, new NotFoundException(NOT_FOUND_PROJECT))
+    }
+
+    def "プロジェクト作成API: 正常系 プロジェクトを作成できる"() {
+        given:
+        this.login()
+
+        final requestBody = Faker.fake(ProjectUpsertRequest)
+
+        when:
+        final request = this.postRequest(CREATE_PROJECT_PATH, requestBody)
+        this.execute(request, HttpStatus.CREATED)
+
+        then:
+        with(sql.firstRow("SELECT * FROM project")) {
+            it.name == requestBody.name
+            it.docker_image_url == requestBody.dockerImage.url
+            it.docker_image_tag == requestBody.dockerImage.tag
+            it.container_port == requestBody.containerPort
+            it.host_port == requestBody.hostPort
+        }
+
+        with(sql.rows("SELECT * FROM cron_job")) {
+            it.expression == requestBody.cronJobs*.expression
+            it.command == requestBody.cronJobs*.command
+            it.docker_image_url == requestBody.cronJobs*.dockerImage*.url
+            it.docker_image_tag == requestBody.cronJobs*.dockerImage*.tag
+        }
+    }
+
+    def "プロジェクト作成API: 異常系 プロジェクト名が既に使用されている場合は409エラー"() {
+        given:
+        this.login()
+
+        final requestBody = Faker.fake(ProjectUpsertRequest)
+        DBUtils.insert(Fixture.of(ProjectEntity, [name: requestBody.name]))
+
+        expect:
+        final request = this.postRequest(CREATE_PROJECT_PATH, requestBody)
+        this.execute(request, new ConflictException(PROJECT_NAME_IS_ALREADY_USED))
+    }
+
+    def "プロジェクト作成API: 異常系 ログインしていない場合は401エラー"() {
+        expect:
+        final request = this.postRequest(CREATE_PROJECT_PATH, Faker.fake(ProjectUpsertRequest))
+        this.execute(request, new UnauthorizedException(NOT_LOGGED_IN))
     }
 
 }

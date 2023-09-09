@@ -3,7 +3,7 @@
 <mapper namespace="net.averak.cap.adapter.dao.mapper.extend.EchoMapper">
     <insert id="bulkUpsert" parameterType="java.util.List">
         INSERT INTO echo(id, timestamp, message) VALUES
-        <foreach collection="echos" item="item" separator=",">
+        <foreach collection="collection" item="item" separator=",">
             (#{item.id}, #{item.timestamp}, #{item.message})
         </foreach>
         ON DUPLICATE KEY UPDATE

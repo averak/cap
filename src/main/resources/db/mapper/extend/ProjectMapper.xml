@@ -41,4 +41,31 @@
         WHERE project.is_deleted = FALSE
           AND project.id = #{id}
     </select>
+
+    <insert id="upsert" parameterType="net.averak.cap.adapter.dao.entity.base.ProjectEntity">
+        INSERT INTO project (id,
+                             name,
+                             docker_image_url,
+                             docker_image_tag,
+                             container_port,
+                             host_port,
+                             is_deleted,
+                             container_environment_variables)
+        values (#{id},
+                #{name},
+                #{dockerImageUrl},
+                #{dockerImageTag},
+                #{containerPort},
+                #{hostPort},
+                #{isDeleted},
+                #{containerEnvironmentVariables})
+        ON DUPLICATE KEY UPDATE id                              = VALUES(id),
+                                name                            = VALUES(name),
+                                docker_image_url                = VALUES(docker_image_url),
+                                docker_image_tag                = VALUES(docker_image_tag),
+                                container_port                  = VALUES(container_port),
+                                host_port                       = VALUES(host_port),
+                                is_deleted                      = VALUES(is_deleted),
+                                container_environment_variables = VALUES(container_environment_variables)
+    </insert>
 </mapper>

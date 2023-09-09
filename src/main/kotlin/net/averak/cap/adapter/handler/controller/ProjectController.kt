@@ -1,8 +1,10 @@
 package net.averak.cap.adapter.handler.controller
 
 import io.swagger.v3.oas.annotations.tags.Tag
-import net.averak.cap.adapter.handler.schema.ProjectResponse
-import net.averak.cap.adapter.handler.schema.ProjectsResponse
+import net.averak.cap.adapter.handler.schema.request.ProjectUpsertRequest
+import net.averak.cap.adapter.handler.schema.response.ProjectResponse
+import net.averak.cap.adapter.handler.schema.response.ProjectsResponse
+import net.averak.cap.domain.factory.ProjectFactory
 import net.averak.cap.domain.primitive.common.ID
 import net.averak.cap.usecase.ProjectUsecase
 import org.springframework.http.HttpStatus
@@ -30,14 +32,17 @@ class ProjectController(
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun createProject() {
-        this.projectUsecase.createProject()
+    fun createProject(@RequestBody requestBody: ProjectUpsertRequest) {
+        this.projectUsecase.createProject(ProjectFactory.create(ID(), requestBody))
     }
 
     @PutMapping("/{project_id}")
     @ResponseStatus(HttpStatus.OK)
-    fun editProject(@PathVariable("project_id") projectId: String) {
-        this.projectUsecase.editProject(ID(projectId))
+    fun editProject(
+        @PathVariable("project_id") projectId: String,
+        @RequestBody requestBody: ProjectUpsertRequest,
+    ) {
+        this.projectUsecase.editProject(ProjectFactory.create(ID(projectId), requestBody))
     }
 
     @DeleteMapping("/{project_id}")

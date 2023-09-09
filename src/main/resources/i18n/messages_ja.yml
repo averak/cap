@@ -22,5 +22,8 @@ forbidden:
 not_found:
   api: "指定されたAPIは存在しません。"
   project: "指定されたプロジェクトは存在しません。"
+conflict:
+  project:
+    name_is_already_used: "そのプロジェクト名は既に使用されています。"
 internal_server_error:
   unexpected_exception: "予期しないエラーが発生しました。問題が解決しない場合は、管理者までご連絡ください。"

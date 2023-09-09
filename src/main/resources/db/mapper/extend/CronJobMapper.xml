@@ -1,4 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="net.averak.cap.adapter.dao.mapper.extend.CronJobMapper">
+    <insert id="bulkInsert" parameterType="java.util.List">
+        INSERT INTO cron_job(id,
+        project_id,
+        expression,
+        command,
+        docker_image_url,
+        docker_image_tag,
+        container_environment_variables) VALUES
+        <foreach collection="collection" item="item" separator=",">
+            (
+            #{item.id},
+            #{item.projectId},
+            #{item.expression},
+            #{item.command},
+            #{item.dockerImageUrl},
+            #{item.dockerImageTag},
+            #{item.containerEnvironmentVariables}
+            )
+        </foreach>
+    </insert>
 </mapper>

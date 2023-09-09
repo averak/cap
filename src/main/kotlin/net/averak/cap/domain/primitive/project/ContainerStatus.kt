@@ -2,6 +2,8 @@ package net.averak.cap.domain.primitive.project
 
 enum class ContainerStatus {
 
+    CREATING,
+
     CREATED,
 
     RESTARTING,
