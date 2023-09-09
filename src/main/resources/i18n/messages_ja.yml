@@ -1,2 +1,11 @@
+bad_request:
+  project:
+    docker_image_is_invalid: "不正なDockerイメージが指定されました。"
+  echo:
+    message_is_invalid: "メッセージは1~100文字で指定する必要があります。"
+  others:
+    id_is_invalid: "不正なIDが指定されました。"
+not_found:
+  api: "指定されたAPIは存在しません。"
 internal_server_error:
   unexpected_exception: "予期しないエラーが発生しました。問題が解決しない場合は、管理者までご連絡ください。"

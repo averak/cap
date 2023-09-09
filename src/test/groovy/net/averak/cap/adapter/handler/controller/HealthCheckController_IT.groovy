@@ -1,5 +1,6 @@
 package net.averak.cap.adapter.handler.controller
 
+import net.averak.cap.adapter.handler.AbstractController_IT
 import org.springframework.http.HttpStatus
 
 class HealthCheckController_IT extends AbstractController_IT {

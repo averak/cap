@@ -71,6 +71,7 @@ dependencies {
     implementation("net.rakugakibox.util:yaml-resource-bundle:1.2")
     implementation("org.wso2.orbit.javax.xml.bind:jaxb-api:2.3.1.wso2v2")
     implementation("de.huxhorn.sulky:de.huxhorn.sulky.ulid:8.3.0")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2")
 
     // test
     testImplementation("org.spockframework:spock-core:2.4-M1-groovy-4.0")
