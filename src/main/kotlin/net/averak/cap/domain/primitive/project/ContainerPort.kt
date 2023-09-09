@@ -7,9 +7,9 @@ class ContainerPort(val value: Int) {
 
     companion object {
 
-        private const val MIN = 0
+        const val MIN = 0
 
-        private const val MAX = 65535
+        const val MAX = 65535
 
     }
 
