@@ -1,6 +1,7 @@
 package net.averak.cap.adapter.dao.factory
 
 import net.averak.cap.adapter.dao.entity.base.ProjectEntity
+import net.averak.cap.adapter.dao.entity.extend.ContainerEnvironmentVariablesJson
 import net.averak.cap.core.utils.JsonUtils
 import net.averak.cap.domain.model.Project
 
@@ -17,7 +18,11 @@ class ProjectEntityFactory {
                 project.dockerImage.tag,
                 project.containerPort.value,
                 project.hostPort.value,
-                JsonUtils.toJson(project.containerEnvironmentVariables),
+                JsonUtils.toJson(
+                    ContainerEnvironmentVariablesJson(
+                        project.containerEnvironmentVariables
+                    )
+                ),
             )
         }
 

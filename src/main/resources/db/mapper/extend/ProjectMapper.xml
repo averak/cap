@@ -4,9 +4,9 @@
 <mapper namespace="net.averak.cap.adapter.dao.mapper.extend.ProjectMapper">
     <resultMap id="ProjectWithCronJobsResultMap"
                type="net.averak.cap.adapter.dao.entity.extend.ProjectWithCronJobsEntity"
-               extends="net.averak.cap.adapter.dao.mapper.base.ProjectBaseMapper.BaseResultMap">
+               extends="net.averak.cap.adapter.dao.mapper.base.ProjectBaseMapper.ResultMapWithBLOBs">
         <collection property="cronJobs"
-                    resultMap="net.averak.cap.adapter.dao.mapper.base.CronJobBaseMapper.BaseResultMap"
+                    resultMap="net.averak.cap.adapter.dao.mapper.base.CronJobBaseMapper.ResultMapWithBLOBs"
                     columnPrefix="cron_job__">
         </collection>
     </resultMap>

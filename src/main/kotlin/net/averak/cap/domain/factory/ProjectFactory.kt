@@ -1,6 +1,8 @@
 package net.averak.cap.domain.factory
 
+import net.averak.cap.adapter.dao.entity.extend.ContainerEnvironmentVariablesJson
 import net.averak.cap.adapter.dao.entity.extend.ProjectWithCronJobsEntity
+import net.averak.cap.core.utils.JsonUtils
 import net.averak.cap.domain.model.Project
 import net.averak.cap.domain.primitive.common.ID
 import net.averak.cap.domain.primitive.project.*
@@ -16,7 +18,10 @@ class ProjectFactory {
                 DockerImage(entity.dockerImageUrl, entity.dockerImageTag),
                 ContainerPort(entity.containerPort),
                 HostPort(entity.hostPort),
-                listOf(),
+                JsonUtils.fromJson(
+                    entity.containerEnvironmentVariables,
+                    ContainerEnvironmentVariablesJson::class.java
+                ).variables,
                 ContainerStatus.RUNNING,
                 entity.cronJobs.map(CronJobFactory::create),
             )

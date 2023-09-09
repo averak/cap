@@ -1,6 +1,8 @@
 package net.averak.cap.domain.factory
 
 import net.averak.cap.adapter.dao.entity.base.CronJobEntity
+import net.averak.cap.adapter.dao.entity.extend.ContainerEnvironmentVariablesJson
+import net.averak.cap.core.utils.JsonUtils
 import net.averak.cap.domain.model.CronJob
 import net.averak.cap.domain.primitive.common.ID
 import net.averak.cap.domain.primitive.cron_job.CronJobCommand
@@ -17,7 +19,10 @@ class CronJobFactory {
                 CronJobExpression(entity.expression),
                 CronJobCommand(entity.command),
                 DockerImage(entity.dockerImageUrl, entity.dockerImageTag),
-                listOf(),
+                JsonUtils.fromJson(
+                    entity.containerEnvironmentVariables,
+                    ContainerEnvironmentVariablesJson::class.java
+                ).variables,
             )
         }
 
