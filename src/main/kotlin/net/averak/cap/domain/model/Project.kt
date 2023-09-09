@@ -12,6 +12,7 @@ class Project(
     val containerEnvironmentVariables: List<ContainerEnvironmentVariable>,
     val containerStatus: ContainerStatus,
     val cronJobs: List<CronJob>,
+    val isDeleted: Boolean,
 ) {
 
 }

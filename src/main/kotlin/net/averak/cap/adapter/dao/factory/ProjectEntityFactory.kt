@@ -18,6 +18,7 @@ class ProjectEntityFactory {
                 project.dockerImage.tag,
                 project.containerPort.value,
                 project.hostPort.value,
+                project.isDeleted,
                 JsonUtils.toJson(
                     ContainerEnvironmentVariablesJson(
                         project.containerEnvironmentVariables

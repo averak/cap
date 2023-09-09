@@ -20,6 +20,7 @@ class ProjectRepository_UT extends AbstractDatabaseSpec {
             Fixture.of(ProjectEntity),
             Fixture.of(ProjectEntity),
             Fixture.of(ProjectEntity),
+            Fixture.of(ProjectEntity, [is_deleted: true]),
         )
         final cronJobEntities = DBUtils.insert(
             Fixture.of(CronJobEntity, [project_id: projectEntities[0].id]),
@@ -31,12 +32,12 @@ class ProjectRepository_UT extends AbstractDatabaseSpec {
         final result = this.sut.findAll()
 
         then:
-        result*.id.value == projectEntities*.id
-        result*.name.value == projectEntities*.name
-        result*.dockerImage.url == projectEntities*.dockerImageUrl
-        result*.dockerImage.tag == projectEntities*.dockerImageTag
-        result*.containerPort.value == projectEntities*.containerPort
-        result*.hostPort.value == projectEntities*.hostPort
+        result*.id.value == projectEntities[0..2]*.id
+        result*.name.value == projectEntities[0..2]*.name
+        result*.dockerImage.url == projectEntities[0..2]*.dockerImageUrl
+        result*.dockerImage.tag == projectEntities[0..2]*.dockerImageTag
+        result*.containerPort.value == projectEntities[0..2]*.containerPort
+        result*.hostPort.value == projectEntities[0..2]*.hostPort
 
         with(result[0].cronJobs) {
             it*.id.value == cronJobEntities[0..1]*.id
@@ -77,13 +78,21 @@ class ProjectRepository_UT extends AbstractDatabaseSpec {
 
     def "findById: 存在しない場合はNULLを返す"() {
         given:
-        DBUtils.insert(Fixture.of(ProjectEntity))
+        DBUtils.insert(
+            Fixture.of(ProjectEntity, [id: Faker.id("1").value, is_deleted: true])
+        )
 
         when:
-        final result = this.sut.findById(Faker.fake(ID))
+        final result = this.sut.findById(id)
 
         then:
         result == null
+
+        where:
+        id << [
+            Faker.id("1"),
+            Faker.id("2"),
+        ]
     }
 
 }

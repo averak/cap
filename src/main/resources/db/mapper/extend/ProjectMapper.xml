@@ -23,6 +23,7 @@
                         cj.container_environment_variables AS cron_job__container_environment_variables
         FROM project
                  LEFT JOIN cron_job cj ON project.id = cj.project_id
+        WHERE project.is_deleted = FALSE
     </select>
 
     <select id="selectById" resultMap="ProjectWithCronJobsResultMap">
@@ -37,6 +38,7 @@
                         cj.container_environment_variables AS cron_job__container_environment_variables
         FROM project
                  LEFT JOIN cron_job cj ON project.id = cj.project_id
-        WHERE project.id = #{id}
+        WHERE project.is_deleted = FALSE
+          AND project.id = #{id}
     </select>
 </mapper>

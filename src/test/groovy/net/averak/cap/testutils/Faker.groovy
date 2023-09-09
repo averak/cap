@@ -1,5 +1,6 @@
 package net.averak.cap.testutils
 
+import net.averak.cap.domain.primitive.common.ID
 import net.averak.cap.testutils.randomizer.IRandomizer
 import org.apache.commons.lang3.RandomStringUtils
 import org.jeasy.random.EasyRandom
@@ -44,6 +45,10 @@ class Faker {
     static Integer integer(final Integer min = 0, final Integer max = 65535) {
         final rand = new Random()
         return min + rand.nextInt((max - min) + 1)
+    }
+
+    static ID id(final String seed) {
+        return new ID(seed.padLeft(26, '0'))
     }
 
 }

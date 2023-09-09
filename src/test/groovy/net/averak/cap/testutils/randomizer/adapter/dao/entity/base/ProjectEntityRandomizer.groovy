@@ -14,7 +14,10 @@ class ProjectEntityRandomizer implements IRandomizer {
 
     @Override
     Object getRandomValue() {
-        return ProjectEntityFactory.create(Faker.fake(Project))
+        final entity = ProjectEntityFactory.create(Faker.fake(Project))
+        entity.isDeleted = false
+
+        return entity
     }
 
 }
