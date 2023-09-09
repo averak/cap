@@ -9,7 +9,7 @@ class CronJobExpression(val value: String) {
     init {
         try {
             CronExpression.parse(value)
-        } catch (ignored: Exception) {
+        } catch (_: Exception) {
             throw BadRequestException(CRON_JOB_EXPRESSION_IS_INVALID)
         }
     }

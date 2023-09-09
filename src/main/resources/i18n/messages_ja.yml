@@ -12,6 +12,11 @@ bad_request:
     message_is_invalid: "メッセージは1~100文字で指定する必要があります。"
   others:
     id_is_invalid: "不正なIDが指定されました。"
+unauthorized:
+  not_logged_in: "ログインしてから再度アクセスしてください。"
+  incorrect_credentials: "不正な認証情報が指定されました。"
+forbidden:
+  user_has_no_permission: "その動作は許可されていません。"
 not_found:
   api: "指定されたAPIは存在しません。"
 internal_server_error:
