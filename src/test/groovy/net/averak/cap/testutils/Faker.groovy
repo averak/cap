@@ -41,4 +41,9 @@ class Faker {
         return RandomStringUtils.randomNumeric(length)
     }
 
+    static Integer integer(final Integer min = 0, final Integer max = 65535) {
+        final rand = new Random()
+        return min + rand.nextInt((max - min) + 1)
+    }
+
 }

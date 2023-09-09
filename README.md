@@ -9,7 +9,7 @@
 API ゲートウェイと異なり、以下の特徴を持ちます。
 
 - Docker コンテナの払い出し/デプロイメント機能を提供
-- アプリケーションごとのバッチジョブをコンテナ or cURL タスクとしてトリガーできる
+- アプリケーションごとのバッチジョブを cron 式でトリガーできる
 
 汎用的な利用は想定しておらず、作者が自身のために開発しているものです。
 
@@ -51,9 +51,9 @@ $ ./gradlew flywaymigrate
 
 ### 依存関係のアップデート
 
-[Gradle Versions Plugin](https://github.com/ben-manes/gradle-versions-plugin)を使って、outdated な依存関係をアップデートします。
+[Gradle Versions Plugin](https://github.com/ben-manes/gradle-versions-plugin) を使って、outdated な依存関係をアップデートします。
 
-下記コマンドの実行後、出力されたレポートに従って[build.gradle.kts](./build.gradle.kts)に記載されたバージョンを書き換えてください。
+下記コマンドの実行後、出力されたレポートに従って [build.gradle.kts](./build.gradle.kts) に記載されたバージョンを書き換えてください。
 
 ```shell
 $ ./gradlew dependencyUpdates -Drevision=release

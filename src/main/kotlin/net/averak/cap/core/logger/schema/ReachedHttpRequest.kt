@@ -6,7 +6,7 @@ class ReachedHttpRequest(
     @JsonProperty("id") val id: String?,
     @JsonProperty("method") val method: String,
     @JsonProperty("uri") val uri: String,
-    @JsonProperty("query_string") val queryString: String,
+    @JsonProperty("query_string") val queryString: String?,
     @JsonProperty("ip_address") val ipAddress: String,
 ) : ILogSchema {
 

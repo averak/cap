@@ -1,10 +1,10 @@
-package net.averak.cap.adapter.handler.controller
+package net.averak.cap.adapter.handler
 
 import net.averak.cap.AbstractDatabaseSpec
 import net.averak.cap.adapter.handler.schema.ErrorResponse
 import net.averak.cap.core.exception.AbstractException
+import net.averak.cap.core.utils.JsonUtils
 import net.averak.cap.infrastructure.i18n.MessageUtils
-import net.averak.cap.testutils.JsonUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -19,6 +19,8 @@ import org.springframework.transaction.PlatformTransactionManager
 import org.springframework.util.MultiValueMap
 import org.springframework.web.context.WebApplicationContext
 import spock.lang.Shared
+
+import javax.annotation.Nullable
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf
@@ -93,7 +95,7 @@ class AbstractController_IT extends AbstractDatabaseSpec {
      *
      * @return HTTP request builder
      */
-    MockHttpServletRequestBuilder postRequest(final String path, final Object content) {
+    MockHttpServletRequestBuilder postRequest(final String path, @Nullable final Object content) {
         return MockMvcRequestBuilders.post(path)
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .content(JsonUtils.toJson(content))
@@ -110,7 +112,7 @@ class AbstractController_IT extends AbstractDatabaseSpec {
      *
      * @return HTTP request builder
      */
-    MockHttpServletRequestBuilder putRequest(final String path, final Object content) {
+    MockHttpServletRequestBuilder putRequest(final String path, @Nullable final Object content) {
         return MockMvcRequestBuilders.put(path)
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .content(JsonUtils.toJson(content))

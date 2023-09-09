@@ -7,6 +7,7 @@ class EchoEntityFactory {
 
     companion object {
 
+        @JvmStatic
         fun create(echo: Echo): EchoEntity {
             return EchoEntity(
                 echo.id.value,

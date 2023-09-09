@@ -1,6 +1,6 @@
 package net.averak.cap.testutils.randomizer.domain.primitive
 
-import net.averak.cap.domain.primitive.ID
+import net.averak.cap.domain.primitive.common.ID
 import net.averak.cap.testutils.randomizer.IRandomizer
 import org.springframework.stereotype.Component
 

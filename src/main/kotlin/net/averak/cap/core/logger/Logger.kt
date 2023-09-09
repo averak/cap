@@ -66,7 +66,7 @@ class Logger(
 
     private fun callInterceptors(): StructuredArgument {
         return this.convertLogSchemasToStructuredArgument(
-            this.interceptors.mapNotNull(ILoggingInterceptor::intercept).toList()
+            this.interceptors.mapNotNull(ILoggingInterceptor::intercept)
         )
     }
 

@@ -4,10 +4,13 @@ import io.swagger.v3.oas.annotations.Hidden
 import net.averak.cap.adapter.handler.schema.ErrorResponse
 import net.averak.cap.core.exception.AbstractException
 import net.averak.cap.core.exception.InternalServerErrorException
+import net.averak.cap.core.exception.NotFoundException
+import net.averak.cap.core.exception.NotFoundException.ErrorCode.NOT_FOUND_API
 import net.averak.cap.infrastructure.i18n.MessageUtils
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.ExceptionHandler
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 
@@ -15,6 +18,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @Controller
 @RestControllerAdvice
 class GlobalControllerAdvice : ResponseEntityExceptionHandler() {
+
+    @RequestMapping("/api/**")
+    fun handleApiNotFound(): ResponseEntity<ErrorResponse> {
+        return this.toResponseEntity(NotFoundException(NOT_FOUND_API))
+    }
 
     @ExceptionHandler(AbstractException::class)
     fun handle(exception: AbstractException): ResponseEntity<ErrorResponse> {

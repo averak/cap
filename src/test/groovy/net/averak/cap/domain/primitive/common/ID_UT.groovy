@@ -1,8 +1,11 @@
-package net.averak.cap.domain.primitive
+package net.averak.cap.domain.primitive.common
 
 import de.huxhorn.sulky.ulid.ULID
 import net.averak.cap.AbstractSpec
+import net.averak.cap.core.exception.BadRequestException
 import net.averak.cap.testutils.Faker
+
+import static net.averak.cap.core.exception.BadRequestException.ErrorCode.ID_IS_INVALID
 
 class ID_UT extends AbstractSpec {
 
@@ -30,7 +33,8 @@ class ID_UT extends AbstractSpec {
         new ID(value)
 
         then:
-        thrown(Exception)
+        final exception = thrown(BadRequestException)
+        exception.errorCode == ID_IS_INVALID
 
         where:
         value << [

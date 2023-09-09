@@ -1,7 +1,10 @@
 package net.averak.cap.domain.primitive.echo
 
 import net.averak.cap.AbstractSpec
+import net.averak.cap.core.exception.BadRequestException
 import net.averak.cap.testutils.Faker
+
+import static net.averak.cap.core.exception.BadRequestException.ErrorCode.ECHO_MESSAGE_IS_INVALID
 
 class EchoMessage_UT extends AbstractSpec {
 
@@ -24,7 +27,8 @@ class EchoMessage_UT extends AbstractSpec {
         new EchoMessage(value)
 
         then:
-        thrown(Exception)
+        final exception = thrown(BadRequestException)
+        exception.errorCode == ECHO_MESSAGE_IS_INVALID
 
         where:
         value << [
