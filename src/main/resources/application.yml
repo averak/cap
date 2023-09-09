@@ -31,3 +31,7 @@ mybatis:
   mapperLocations:
     - classpath:/db/mapper/base/*Mapper.xml
     - classpath:/db/mapper/extend/*Mapper.xml
+
+ip-address-whitelist:
+  healthcheck-api:
+    - 0:0:0:0:0:0:0:1
