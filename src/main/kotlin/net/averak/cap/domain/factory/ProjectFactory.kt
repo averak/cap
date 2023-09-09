@@ -22,6 +22,7 @@ class ProjectFactory {
                     entity.containerEnvironmentVariables,
                     ContainerEnvironmentVariablesJson::class.java
                 ).variables,
+                // TODO: コンテナステータスをチェックする (永続化せず、毎回 Docker API 経由で取得すること)
                 ContainerStatus.RUNNING,
                 entity.cronJobs.map(CronJobFactory::create),
             )
