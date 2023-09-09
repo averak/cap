@@ -128,7 +128,6 @@ tasks {
     dependencies {
         mybatisGenerator("mysql:mysql-connector-java:8.0.31")
         mybatisGenerator("org.mybatis.generator:mybatis-generator-core:1.4.1")
-        mybatisGenerator("com.softwareloop:mybatis-generator-lombok-plugin:1.0")
     }
     task("mbgenerate") {
         doLast {

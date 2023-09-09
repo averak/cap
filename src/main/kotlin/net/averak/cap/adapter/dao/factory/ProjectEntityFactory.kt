@@ -8,6 +8,7 @@ class ProjectEntityFactory {
 
     companion object {
 
+        @JvmStatic
         fun create(project: Project): ProjectEntity {
             return ProjectEntity(
                 project.id.value,

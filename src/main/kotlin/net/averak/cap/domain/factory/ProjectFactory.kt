@@ -1,6 +1,6 @@
 package net.averak.cap.domain.factory
 
-import net.averak.cap.adapter.dao.entity.extend.ProjectAndCronJobsEntity
+import net.averak.cap.adapter.dao.entity.extend.ProjectWithCronJobsEntity
 import net.averak.cap.domain.model.Project
 import net.averak.cap.domain.primitive.common.ID
 import net.averak.cap.domain.primitive.project.*
@@ -9,13 +9,13 @@ class ProjectFactory {
 
     companion object {
 
-        fun create(entity: ProjectAndCronJobsEntity): Project {
+        fun create(entity: ProjectWithCronJobsEntity): Project {
             return Project(
-                ID(entity.project.id),
-                ProjectName(entity.project.name),
-                DockerImage(entity.project.dockerImageUrl, entity.project.dockerImageTag),
-                ContainerPort(entity.project.containerPort),
-                HostPort(entity.project.hostPort),
+                ID(entity.id),
+                ProjectName(entity.name),
+                DockerImage(entity.dockerImageUrl, entity.dockerImageTag),
+                ContainerPort(entity.containerPort),
+                HostPort(entity.hostPort),
                 listOf(),
                 ContainerStatus.RUNNING,
                 entity.cronJobs.map(CronJobFactory::create),
