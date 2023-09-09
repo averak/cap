@@ -1,4 +1,4 @@
-package net.averak.cap.adapter.handler.schema
+package net.averak.cap.adapter.handler.schema.response
 
 class ErrorResponse(
     val code: String,

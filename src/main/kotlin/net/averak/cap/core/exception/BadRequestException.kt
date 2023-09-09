@@ -33,7 +33,8 @@ class BadRequestException(errorCode: ErrorCode) : AbstractException(HttpStatus.B
         ECHO_MESSAGE_IS_INVALID("bad_request.echo.message_is_invalid"),
 
         // その他
-        ID_IS_INVALID("bad_request.others.id_is_invalid")
+        ID_IS_INVALID("bad_request.others.id_is_invalid"),
+
     }
 
 }

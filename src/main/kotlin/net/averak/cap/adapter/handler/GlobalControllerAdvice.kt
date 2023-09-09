@@ -3,7 +3,7 @@ package net.averak.cap.adapter.handler
 import io.swagger.v3.oas.annotations.Hidden
 import jakarta.validation.ConstraintViolationException
 import jakarta.validation.ValidationException
-import net.averak.cap.adapter.handler.schema.ErrorResponse
+import net.averak.cap.adapter.handler.schema.response.ErrorResponse
 import net.averak.cap.core.exception.AbstractException
 import net.averak.cap.core.exception.BadRequestException
 import net.averak.cap.core.exception.BadRequestException.ErrorCode.INVALID_REQUEST_PARAMETER

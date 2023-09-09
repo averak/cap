@@ -10,8 +10,7 @@ public class ProjectWithCronJobsEntity extends ProjectEntity {
     public List<CronJobEntity> cronJobs;
 
     public ProjectWithCronJobsEntity(final String id, final String name, final String dockerImageUrl, final String dockerImageTag,
-        final Integer containerPort, final Integer hostPort, final String containerEnvironmentVariables) {
-        super(id, name, dockerImageUrl, dockerImageTag, containerPort, hostPort, containerEnvironmentVariables);
+        final Integer containerPort, final Integer hostPort, final Boolean isDeleted, final String containerEnvironmentVariables) {
+        super(id, name, dockerImageUrl, dockerImageTag, containerPort, hostPort, isDeleted, containerEnvironmentVariables);
     }
-
 }

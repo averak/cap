@@ -12,6 +12,11 @@ class Project(
     val containerEnvironmentVariables: List<ContainerEnvironmentVariable>,
     val containerStatus: ContainerStatus,
     val cronJobs: List<CronJob>,
+    var isDeleted: Boolean,
 ) {
+
+    fun delete() {
+        this.isDeleted = true
+    }
 
 }

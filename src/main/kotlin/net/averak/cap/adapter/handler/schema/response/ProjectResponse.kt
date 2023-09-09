@@ -1,4 +1,4 @@
-package net.averak.cap.adapter.handler.schema
+package net.averak.cap.adapter.handler.schema.response
 
 import net.averak.cap.domain.model.Project
 import net.averak.cap.domain.primitive.project.ContainerStatus

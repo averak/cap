@@ -32,7 +32,7 @@
         <javaModelGenerator targetPackage="net.averak.cap.adapter.dao.entity.base"
                             targetProject="src/main/java">
             <property name="constructorBased" value="true"/>
-            <property name="immutable" value="true"/>
+            <property name="immutable" value="false"/>
         </javaModelGenerator>
         <sqlMapGenerator targetPackage="db.mapper.base" targetProject="src/main/resources"/>
         <javaClientGenerator targetPackage="net.averak.cap.adapter.dao.mapper.base"

@@ -1,7 +1,7 @@
 package net.averak.cap.adapter.handler.controller
 
 import io.swagger.v3.oas.annotations.tags.Tag
-import net.averak.cap.adapter.handler.schema.EchoResponse
+import net.averak.cap.adapter.handler.schema.response.EchoResponse
 import net.averak.cap.domain.primitive.echo.EchoMessage
 import net.averak.cap.usecase.EchoUsecase
 import org.springframework.http.HttpStatus

@@ -1,5 +1,6 @@
 package net.averak.cap.testutils
 
+import net.averak.cap.domain.primitive.common.ID
 import net.averak.cap.testutils.randomizer.IRandomizer
 import org.apache.commons.lang3.RandomStringUtils
 import org.jeasy.random.EasyRandom
@@ -29,7 +30,7 @@ class Faker {
         return easyRandom.nextObject(clazz)
     }
 
-    static <T> List<T> fakes(final Class<T> clazz, final Integer size = easyRandom.nextInt(10)) {
+    static <T> List<T> fakes(final Class<T> clazz, final Integer size = easyRandom.nextInt(1, 10)) {
         return easyRandom.objects(clazz, size).toList()
     }
 
@@ -44,6 +45,14 @@ class Faker {
     static Integer integer(final Integer min = 0, final Integer max = 65535) {
         final rand = new Random()
         return min + rand.nextInt((max - min) + 1)
+    }
+
+    static Integer dice(final Integer max = 10) {
+        return easyRandom.nextInt(1, max)
+    }
+
+    static ID id(final String seed) {
+        return new ID(seed.padLeft(26, '0'))
     }
 
 }

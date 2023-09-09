@@ -1,7 +1,7 @@
 package net.averak.cap.adapter.handler
 
 import net.averak.cap.AbstractDatabaseSpec
-import net.averak.cap.adapter.handler.schema.ErrorResponse
+import net.averak.cap.adapter.handler.schema.response.ErrorResponse
 import net.averak.cap.core.exception.AbstractException
 import net.averak.cap.core.utils.JsonUtils
 import net.averak.cap.infrastructure.i18n.I18nUtils
@@ -28,7 +28,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity
 
-class AbstractController_IT extends AbstractDatabaseSpec {
+abstract class AbstractController_IT extends AbstractDatabaseSpec {
 
     private MockMvc mockMvc
 
