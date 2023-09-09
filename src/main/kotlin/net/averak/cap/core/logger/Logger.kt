@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import net.averak.cap.core.exception.AbstractException
 import net.averak.cap.core.logger.interceptor.ILoggingInterceptor
 import net.averak.cap.core.logger.schema.ILogSchema
-import net.averak.cap.infrastructure.i18n.MessageUtils
+import net.averak.cap.infrastructure.i18n.I18nUtils
 import net.logstash.logback.argument.StructuredArgument
 import net.logstash.logback.argument.StructuredArguments.entries
 import net.logstash.logback.argument.StructuredArguments.value
@@ -86,7 +86,7 @@ class Logger(
 
         constructor(exception: AbstractException) : this(
             exception.errorCode.name,
-            MessageUtils.getMessage(exception.errorCode.messageSourceKey),
+            I18nUtils.getMessage(exception.errorCode.messageSourceKey),
             exception.causedBy?.javaClass?.simpleName
         )
     }

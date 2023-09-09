@@ -8,6 +8,7 @@ class GlobalControllerAdvice_IT extends AbstractController_IT {
 
     def "異常系 存在しないパスにリクエストすると404を返す"() {
         given:
+        this.login()
         final path = "/api/xxx"
 
         when: "GET"

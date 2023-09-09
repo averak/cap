@@ -4,12 +4,14 @@ import net.averak.cap.AbstractDatabaseSpec
 import net.averak.cap.adapter.handler.schema.ErrorResponse
 import net.averak.cap.core.exception.AbstractException
 import net.averak.cap.core.utils.JsonUtils
-import net.averak.cap.infrastructure.i18n.MessageUtils
+import net.averak.cap.infrastructure.i18n.I18nUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.mock.web.MockHttpSession
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
+import org.springframework.security.core.authority.AuthorityUtils
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.MvcResult
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder
@@ -180,8 +182,17 @@ class AbstractController_IT extends AbstractDatabaseSpec {
 
         assert result.response.status == exception.httpStatus.value()
         assert response.code == exception.errorCode.name
-        assert response.message == MessageUtils.getMessage(exception.errorCode.messageSourceKey)
+        assert response.message == I18nUtils.getMessage(exception.errorCode.messageSourceKey)
         return response
+    }
+
+    protected void login() {
+        final authorities = AuthorityUtils.createAuthorityList("ROLE_USER")
+        this.authentication = Optional.of(new UsernamePasswordAuthenticationToken(null, null, authorities))
+    }
+
+    protected void logout() {
+        this.authentication = Optional.empty()
     }
 
     /**
@@ -198,8 +209,11 @@ class AbstractController_IT extends AbstractDatabaseSpec {
             .build()
     }
 
+    /**
+     * cleanup after test case
+     */
     def cleanup() {
-        this.authentication = Optional.empty()
+        this.logout()
     }
 
 }

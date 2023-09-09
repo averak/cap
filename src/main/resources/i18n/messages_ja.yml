@@ -1,4 +1,6 @@
 bad_request:
+  validation_error: "不正なリクエストです。問題が解決しない場合は、管理者までご連絡ください。"
+  invalid_request_parameter: "不正なリクエストです。問題が解決しない場合は、管理者までご連絡ください。"
   cron_job:
     command_is_invalid: "コマンドは1~500文字で指定する必要があります。"
     expression_is_invalid: "不正なcron式が指定されました。"
@@ -12,6 +14,11 @@ bad_request:
     message_is_invalid: "メッセージは1~100文字で指定する必要があります。"
   others:
     id_is_invalid: "不正なIDが指定されました。"
+unauthorized:
+  not_logged_in: "ログインしてから再度アクセスしてください。"
+  incorrect_credentials: "不正な認証情報が指定されました。"
+forbidden:
+  user_has_no_permission: "その動作は許可されていません。"
 not_found:
   api: "指定されたAPIは存在しません。"
 internal_server_error:
