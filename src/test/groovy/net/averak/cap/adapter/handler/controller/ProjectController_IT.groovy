@@ -27,6 +27,7 @@ class ProjectController_IT extends AbstractController_IT {
     static final String GET_PROJECT_PATH = BASE_PATH + "/%s"
     static final String CREATE_PROJECT_PATH = BASE_PATH
     static final String EDIT_PROJECT_PATH = BASE_PATH + "/%s"
+    static final String DELETE_PROJECT_PATH = BASE_PATH + "/%s"
 
     def "プロジェクトリスト取得API: 正常系 プロジェクトリストを取得できる"() {
         given:
@@ -207,7 +208,7 @@ class ProjectController_IT extends AbstractController_IT {
 
         expect:
         final request = this.putRequest(String.format(EDIT_PROJECT_PATH, Faker.fake(ID).value), requestBody)
-        this.execute(request, new ConflictException(PROJECT_NAME_IS_ALREADY_USED))
+        this.execute(request, new NotFoundException(NOT_FOUND_PROJECT))
     }
 
     def "プロジェクト編集API: 異常系 プロジェクト名が既に使用されている場合は409エラー"() {
@@ -215,11 +216,53 @@ class ProjectController_IT extends AbstractController_IT {
         this.login()
 
         final requestBody = Faker.fake(ProjectUpsertRequest)
-        DBUtils.insert(Fixture.of(ProjectEntity, [name: requestBody.name]))
+        final id = Faker.fake(ID)
+        DBUtils.insert(
+            Fixture.of(ProjectEntity, [id: id.value]),
+            Fixture.of(ProjectEntity, [name: requestBody.name]),
+        )
 
         expect:
-        final request = this.putRequest(String.format(EDIT_PROJECT_PATH, Faker.fake(ID).value), requestBody)
+        final request = this.putRequest(String.format(EDIT_PROJECT_PATH, id.value), requestBody)
         this.execute(request, new ConflictException(PROJECT_NAME_IS_ALREADY_USED))
+    }
+
+    def "プロジェクト削除API: 正常系 プロジェクトを削除できる"() {
+        given:
+        this.login()
+
+        final projectEntities = DBUtils.insert(
+            Fixture.of(ProjectEntity),
+            Fixture.of(ProjectEntity),
+        )
+
+        when:
+        final request = this.deleteRequest(String.format(DELETE_PROJECT_PATH, projectEntities[0].id))
+        this.execute(request, HttpStatus.OK)
+
+        then:
+        sql.rows("SELECT * FROM project WHERE is_deleted = TRUE").id == [projectEntities[0].id]
+        sql.rows("SELECT * FROM project WHERE is_deleted = FALSE").id == [projectEntities[1].id]
+    }
+
+    def "プロジェクト削除API: 異常系 ログインしていない場合は401エラー"() {
+        given:
+        final id = Faker.fake(ID)
+
+        expect:
+        final request = this.deleteRequest(String.format(DELETE_PROJECT_PATH, id.value))
+        this.execute(request, new UnauthorizedException(NOT_LOGGED_IN))
+    }
+
+    def "プロジェクト削除API: 異常系 プロジェクトが存在しない場合は404エラー"() {
+        given:
+        this.login()
+
+        final id = Faker.fake(ID)
+
+        expect:
+        final request = this.deleteRequest(String.format(DELETE_PROJECT_PATH, id.value))
+        this.execute(request, new NotFoundException(NOT_FOUND_PROJECT))
     }
 
 }

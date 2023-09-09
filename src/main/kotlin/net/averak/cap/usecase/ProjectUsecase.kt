@@ -30,6 +30,9 @@ class ProjectUsecase(
         }
 
         this.projectRepository.save(project)
+
+        // TODO: ホストポートを割り当てる
+        // TODO: コンテナを立ち上げる
     }
 
     fun editProject(project: Project) {
@@ -41,10 +44,17 @@ class ProjectUsecase(
         }
 
         this.projectRepository.save(project)
+
+        // TODO: コンテナを立ち上げる
     }
 
-    fun deleteProject(projectID: ID) {
-        // TODO: #13 ProjectUsecase::deleteProject を実装
+    fun deleteProject(projectId: ID) {
+        val project = this.projectRepository.findById(projectId)
+            ?: throw NotFoundException(NotFoundException.ErrorCode.NOT_FOUND_PROJECT)
+        project.delete()
+        this.projectRepository.save(project)
+
+        // TODO: コンテナを削除する
     }
 
 }

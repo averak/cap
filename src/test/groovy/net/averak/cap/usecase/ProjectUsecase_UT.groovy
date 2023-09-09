@@ -120,4 +120,30 @@ class ProjectUsecase_UT extends AbstractUsecase_UT {
         exception.errorCode == PROJECT_NAME_IS_ALREADY_USED
     }
 
+    def "deleteProject: 正常系 プロジェクトを削除できる"() {
+        given:
+        final project = Faker.fake(Project)
+
+        when:
+        this.sut.deleteProject(project.id)
+
+        then:
+        1 * this.projectRepository.findById(project.id) >> project
+        1 * this.projectRepository.save(_)
+    }
+
+    def "deleteProject: 異常系 プロジェクトが存在しない場合は404エラー"() {
+        given:
+        final project = Faker.fake(Project)
+
+        when:
+        this.sut.deleteProject(project.id)
+
+        then:
+        1 * this.projectRepository.findById(project.id) >> null
+
+        final exception = thrown(NotFoundException)
+        exception.errorCode == NOT_FOUND_PROJECT
+    }
+
 }
