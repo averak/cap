@@ -1,6 +1,7 @@
 package net.averak.cap.adapter.dao.factory
 
 import net.averak.cap.adapter.dao.entity.base.CronJobEntity
+import net.averak.cap.core.utils.JsonUtils
 import net.averak.cap.domain.model.Project
 
 class CronJobEntityFactory {
@@ -16,6 +17,7 @@ class CronJobEntityFactory {
                     it.command?.value,
                     it.dockerImage.url,
                     it.dockerImage.tag,
+                    JsonUtils.toJson(it.containerEnvironmentVariables),
                 )
             }
         }

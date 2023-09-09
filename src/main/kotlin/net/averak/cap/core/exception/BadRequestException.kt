@@ -22,6 +22,8 @@ class BadRequestException(errorCode: ErrorCode) : AbstractException(HttpStatus.B
 
         PROJECT_HOST_PORT_IS_INVALID("bad_request.project.host_port_is_invalid"),
 
+        PROJECT_CONTAINER_ENVIRONMENT_VARIABLE_NAME_IS_INVALID("bad_request.project.container_environment_variable_name_is_invalid"),
+
         // Echo
         ECHO_MESSAGE_IS_INVALID("bad_request.echo.message_is_invalid"),
 

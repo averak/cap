@@ -3,8 +3,8 @@ package net.averak.cap.adapter.handler
 import net.averak.cap.AbstractDatabaseSpec
 import net.averak.cap.adapter.handler.schema.ErrorResponse
 import net.averak.cap.core.exception.AbstractException
+import net.averak.cap.core.utils.JsonUtils
 import net.averak.cap.infrastructure.i18n.MessageUtils
-import net.averak.cap.testutils.JsonUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--suppress checkSelectColumnExistInMybatisResultmap -->
+<mapper namespace="net.averak.cap.adapter.dao.mapper.extend.ProjectMapper">
+    <resultMap id="ProjectAndCronJobsResultMap"
+               type="net.averak.cap.adapter.dao.entity.extend.ProjectAndCronJobsEntity">
+        <association property="project"
+                     resultMap="net.averak.cap.adapter.dao.mapper.base.ProjectBaseMapper.BaseResultMap"
+                     columnPrefix="project__"/>
+        <collection property="cronJobs"
+                    resultMap="net.averak.cap.adapter.dao.mapper.base.CronJobBaseMapper.BaseResultMap"
+                    columnPrefix="cron_job__">
+        </collection>
+    </resultMap>
+
+    <select id="selectAll" resultMap="ProjectAndCronJobsResultMap">
+        SELECT DISTINCT project.id                              AS project__id,
+                        project.name                            AS project__name,
+                        project.docker_image_url                AS project__docker_image_url,
+                        project.docker_image_tag                AS project__docker_image_tag,
+                        project.container_environment_variables AS project__container_environment_variables,
+                        project.container_port                  AS project__container_port,
+                        project.host_port                       AS project__host_port,
+
+                        cj.id                                   AS cron_job__id,
+                        cj.project_id                           AS cron_job__project_id,
+                        cj.expression                           AS cron_job__expression,
+                        cj.command                              AS cron_job__command,
+                        cj.docker_image_url                     AS cron_job__docker_image_url,
+                        cj.docker_image_tag                     AS cron_job__docker_image_tag,
+                        cj.container_environment_variables      AS cron_job__container_environment_variables
+        FROM project
+                 LEFT JOIN cron_job cj ON project.id = cj.project_id;
+    </select>
+</mapper>

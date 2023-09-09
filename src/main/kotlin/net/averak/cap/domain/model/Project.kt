@@ -9,6 +9,7 @@ class Project(
     val dockerImage: DockerImage,
     val containerPort: ContainerPort,
     val hostPort: HostPort,
+    val containerEnvironmentVariables: List<ContainerEnvironmentVariable>,
     val containerStatus: ContainerStatus,
     val cronJobs: List<CronJob>,
 ) {

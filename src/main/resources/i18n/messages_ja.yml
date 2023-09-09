@@ -7,6 +7,7 @@ bad_request:
     docker_image_is_invalid: "不正なDockerイメージが指定されました。"
     container_port_is_invalid: "コンテナポート番号は0~65535の範囲で指定する必要があります。"
     host_port_is_invalid: "ホストポート番号は50000~65535の範囲で指定する必要があります。"
+    container_environment_variable_name_is_invalid: "不正な環境変数名が指定されました。"
   echo:
     message_is_invalid: "メッセージは1~100文字で指定する必要があります。"
   others:
