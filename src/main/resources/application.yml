@@ -25,12 +25,38 @@ spring:
     connect-retries: 5
     enabled: true
 
+springdoc:
+  swagger-ui:
+    doc-expansion: none
+    enabled: ${SWAGGER_UI_ENABLED:true}
+
+server:
+  port: ${PORT:8080}
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+    session:
+      cookie:
+        same-site: lax
+        max-age: 30d
+        name: JSESSIONID
+      timeout: 30d
+  forward-headers-strategy: framework
+  reactive:
+    session:
+      timeout: 3h
+
 mybatis:
   configuration:
     mapUnderscoreToCamelCase: true
   mapperLocations:
     - classpath:/db/mapper/base/*Mapper.xml
     - classpath:/db/mapper/extend/*Mapper.xml
+
+application:
+  name: cap
+  version: 1.0.0-SNAPSHOT
 
 ip-address-whitelist:
   healthcheck-api:
