@@ -1,6 +1,7 @@
 # cap
 
 ![CI](https://github.com/averak/cap/workflows/CI/badge.svg)
+![Build](https://github.com/averak/cap/workflows/Build/badge.svg)
 ![version](https://img.shields.io/badge/version-1.0.0--SNAPSHOT-blue.svg)
 
 ## 概要
