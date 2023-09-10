@@ -14,7 +14,7 @@ class ProjectEntityFactory {
             return ProjectEntity(
                 project.id.value,
                 project.name.value,
-                project.dockerImage.url,
+                project.dockerImage.repositoryName,
                 project.dockerImage.tag,
                 project.containerPort.value,
                 project.hostPort.value,

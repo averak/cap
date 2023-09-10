@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS `cron_job`
     `project_id`                      CHAR(26)      NOT NULL,
     `expression`                      VARCHAR(255)  NOT NULL,
     `command`                         VARCHAR(1023) NOT NULL,
-    `docker_image_url`                VARCHAR(255)  NOT NULL,
+    `docker_image_repository_name`    VARCHAR(255)  NOT NULL,
     `docker_image_tag`                VARCHAR(255)  NOT NULL,
     `container_environment_variables` JSON          NOT NULL,
     `created_at`                      DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,

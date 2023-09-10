@@ -20,7 +20,7 @@ class CronJobFactory {
                 ID(entity.id),
                 CronJobExpression(entity.expression),
                 CronJobCommand(entity.command),
-                DockerImage(entity.dockerImageUrl, entity.dockerImageTag),
+                DockerImage(entity.dockerImageRepositoryName, entity.dockerImageTag),
                 JsonUtils.fromJson(
                     entity.containerEnvironmentVariables,
                     ContainerEnvironmentVariablesJson::class.java
@@ -33,7 +33,7 @@ class CronJobFactory {
                 ID(),
                 CronJobExpression(requestBody.expression),
                 if (requestBody.command != null) CronJobCommand(requestBody.command) else null,
-                DockerImage(requestBody.dockerImage.url, requestBody.dockerImage.tag),
+                DockerImage(requestBody.dockerImage.repositoryName, requestBody.dockerImage.tag),
                 requestBody.containerEnvironmentVariables.map {
                     ContainerEnvironmentVariable(it.name, it.value, it.isSecret)
                 }

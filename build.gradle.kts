@@ -58,6 +58,10 @@ dependencies {
     implementation("com.github.therapi:therapi-runtime-javadoc:0.15.0")
     annotationProcessor("com.github.therapi:therapi-runtime-javadoc-scribe:0.15.0")
 
+    // docker
+    implementation("com.github.docker-java:docker-java:3.3.3")
+    implementation("com.github.docker-java:docker-java-transport-httpclient5:3.3.3")
+
     // logging
     implementation("ch.qos.logback:logback-classic:1.4.8")
     implementation("net.logstash.logback:logstash-logback-encoder:7.4")

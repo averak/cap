@@ -1,6 +1,6 @@
 package net.averak.cap.core.logger.interceptor
 
-import net.averak.cap.core.logger.schema.ApplicationDetail
+import net.averak.cap.core.logger.schema.ApplicationLogSchema
 import net.averak.cap.core.logger.schema.ILogSchema
 import net.averak.cap.core.property.ApplicationProperty
 import org.springframework.stereotype.Component
@@ -11,7 +11,7 @@ class ApplicationInfoLoggingInterceptor(
 ) : ILoggingInterceptor {
 
     override fun intercept(): ILogSchema {
-        return ApplicationDetail(
+        return ApplicationLogSchema(
             this.applicationProperty.name,
             this.applicationProperty.version,
         )

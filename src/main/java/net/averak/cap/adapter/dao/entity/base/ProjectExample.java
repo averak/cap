@@ -334,73 +334,73 @@ public class ProjectExample {
             return (Criteria) this;
         }
 
-        public Criteria andDockerImageUrlIsNull() {
-            addCriterion("`docker_image_url` is null");
+        public Criteria andDockerImageRepositoryNameIsNull() {
+            addCriterion("`docker_image_repository_name` is null");
             return (Criteria) this;
         }
 
-        public Criteria andDockerImageUrlIsNotNull() {
-            addCriterion("`docker_image_url` is not null");
+        public Criteria andDockerImageRepositoryNameIsNotNull() {
+            addCriterion("`docker_image_repository_name` is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDockerImageUrlEqualTo(String value) {
-            addCriterion("`docker_image_url` =", value, "dockerImageUrl");
+        public Criteria andDockerImageRepositoryNameEqualTo(String value) {
+            addCriterion("`docker_image_repository_name` =", value, "dockerImageRepositoryName");
             return (Criteria) this;
         }
 
-        public Criteria andDockerImageUrlNotEqualTo(String value) {
-            addCriterion("`docker_image_url` <>", value, "dockerImageUrl");
+        public Criteria andDockerImageRepositoryNameNotEqualTo(String value) {
+            addCriterion("`docker_image_repository_name` <>", value, "dockerImageRepositoryName");
             return (Criteria) this;
         }
 
-        public Criteria andDockerImageUrlGreaterThan(String value) {
-            addCriterion("`docker_image_url` >", value, "dockerImageUrl");
+        public Criteria andDockerImageRepositoryNameGreaterThan(String value) {
+            addCriterion("`docker_image_repository_name` >", value, "dockerImageRepositoryName");
             return (Criteria) this;
         }
 
-        public Criteria andDockerImageUrlGreaterThanOrEqualTo(String value) {
-            addCriterion("`docker_image_url` >=", value, "dockerImageUrl");
+        public Criteria andDockerImageRepositoryNameGreaterThanOrEqualTo(String value) {
+            addCriterion("`docker_image_repository_name` >=", value, "dockerImageRepositoryName");
             return (Criteria) this;
         }
 
-        public Criteria andDockerImageUrlLessThan(String value) {
-            addCriterion("`docker_image_url` <", value, "dockerImageUrl");
+        public Criteria andDockerImageRepositoryNameLessThan(String value) {
+            addCriterion("`docker_image_repository_name` <", value, "dockerImageRepositoryName");
             return (Criteria) this;
         }
 
-        public Criteria andDockerImageUrlLessThanOrEqualTo(String value) {
-            addCriterion("`docker_image_url` <=", value, "dockerImageUrl");
+        public Criteria andDockerImageRepositoryNameLessThanOrEqualTo(String value) {
+            addCriterion("`docker_image_repository_name` <=", value, "dockerImageRepositoryName");
             return (Criteria) this;
         }
 
-        public Criteria andDockerImageUrlLike(String value) {
-            addCriterion("`docker_image_url` like", value, "dockerImageUrl");
+        public Criteria andDockerImageRepositoryNameLike(String value) {
+            addCriterion("`docker_image_repository_name` like", value, "dockerImageRepositoryName");
             return (Criteria) this;
         }
 
-        public Criteria andDockerImageUrlNotLike(String value) {
-            addCriterion("`docker_image_url` not like", value, "dockerImageUrl");
+        public Criteria andDockerImageRepositoryNameNotLike(String value) {
+            addCriterion("`docker_image_repository_name` not like", value, "dockerImageRepositoryName");
             return (Criteria) this;
         }
 
-        public Criteria andDockerImageUrlIn(List<String> values) {
-            addCriterion("`docker_image_url` in", values, "dockerImageUrl");
+        public Criteria andDockerImageRepositoryNameIn(List<String> values) {
+            addCriterion("`docker_image_repository_name` in", values, "dockerImageRepositoryName");
             return (Criteria) this;
         }
 
-        public Criteria andDockerImageUrlNotIn(List<String> values) {
-            addCriterion("`docker_image_url` not in", values, "dockerImageUrl");
+        public Criteria andDockerImageRepositoryNameNotIn(List<String> values) {
+            addCriterion("`docker_image_repository_name` not in", values, "dockerImageRepositoryName");
             return (Criteria) this;
         }
 
-        public Criteria andDockerImageUrlBetween(String value1, String value2) {
-            addCriterion("`docker_image_url` between", value1, value2, "dockerImageUrl");
+        public Criteria andDockerImageRepositoryNameBetween(String value1, String value2) {
+            addCriterion("`docker_image_repository_name` between", value1, value2, "dockerImageRepositoryName");
             return (Criteria) this;
         }
 
-        public Criteria andDockerImageUrlNotBetween(String value1, String value2) {
-            addCriterion("`docker_image_url` not between", value1, value2, "dockerImageUrl");
+        public Criteria andDockerImageRepositoryNameNotBetween(String value1, String value2) {
+            addCriterion("`docker_image_repository_name` not between", value1, value2, "dockerImageRepositoryName");
             return (Criteria) this;
         }
 

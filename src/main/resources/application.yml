@@ -62,3 +62,5 @@ ip-address-whitelist:
   healthcheck-api:
     - 127.0.0.1
     - ::1
+docker:
+  host: ${DOCKER_HOST:tcp://localhost:2375}

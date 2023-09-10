@@ -16,7 +16,7 @@ class ProjectFactory {
             return Project(
                 ID(entity.id),
                 ProjectName(entity.name),
-                DockerImage(entity.dockerImageUrl, entity.dockerImageTag),
+                DockerImage(entity.dockerImageRepositoryName, entity.dockerImageTag),
                 ContainerPort(entity.containerPort),
                 HostPort(entity.hostPort),
                 JsonUtils.fromJson(
@@ -34,9 +34,10 @@ class ProjectFactory {
             return Project(
                 id,
                 ProjectName(requestBody.name),
-                DockerImage(requestBody.dockerImage.url, requestBody.dockerImage.tag),
+                DockerImage(requestBody.dockerImage.repositoryName, requestBody.dockerImage.tag),
                 ContainerPort(requestBody.containerPort),
-                HostPort(requestBody.hostPort),
+                // TODO: ポートを割り当てること
+                HostPort(HostPort.MIN),
                 requestBody.containerEnvironmentVariables.map {
                     ContainerEnvironmentVariable(it.name, it.value, it.isSecret)
                 },

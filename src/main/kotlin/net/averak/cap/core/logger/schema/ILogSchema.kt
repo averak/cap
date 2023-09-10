@@ -5,6 +5,6 @@ interface ILogSchema {
     /**
      * 構造化ログに吐き出すキーを取得
      */
-    fun getFieldKey(): String
+    fun fieldKey(): String
 
 }

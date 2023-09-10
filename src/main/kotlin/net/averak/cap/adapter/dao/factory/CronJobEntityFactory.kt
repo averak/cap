@@ -17,7 +17,7 @@ class CronJobEntityFactory {
                 project.id.value,
                 cronJob.expression.value,
                 cronJob.command?.value,
-                cronJob.dockerImage.url,
+                cronJob.dockerImage.repositoryName,
                 cronJob.dockerImage.tag,
                 JsonUtils.toJson(
                     ContainerEnvironmentVariablesJson(

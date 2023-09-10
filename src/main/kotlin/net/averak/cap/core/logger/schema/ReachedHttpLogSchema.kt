@@ -2,7 +2,7 @@ package net.averak.cap.core.logger.schema
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-class ReachedHttpRequest(
+class ReachedHttpLogSchema(
     @JsonProperty("id") val id: String?,
     @JsonProperty("method") val method: String,
     @JsonProperty("uri") val uri: String,
@@ -10,7 +10,7 @@ class ReachedHttpRequest(
     @JsonProperty("ip_address") val ipAddress: String,
 ) : ILogSchema {
 
-    override fun getFieldKey(): String {
+    override fun fieldKey(): String {
         return "http_request"
     }
 

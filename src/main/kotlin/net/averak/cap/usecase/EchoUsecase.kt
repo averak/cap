@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 open class EchoUsecase(
-    private val echoRepository: IEchoRepository
+    private val echoRepository: IEchoRepository,
 ) {
 
     @Transactional

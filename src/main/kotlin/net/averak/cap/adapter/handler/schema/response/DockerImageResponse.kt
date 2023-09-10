@@ -3,12 +3,12 @@ package net.averak.cap.adapter.handler.schema.response
 import net.averak.cap.domain.primitive.project.DockerImage
 
 class DockerImageResponse(
-    val url: String,
+    val repositoryName: String,
     val tag: String,
 ) {
 
     constructor(dockerImage: DockerImage) : this(
-        dockerImage.url,
+        dockerImage.repositoryName,
         dockerImage.tag,
     )
 

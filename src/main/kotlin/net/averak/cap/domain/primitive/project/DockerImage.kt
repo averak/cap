@@ -4,12 +4,12 @@ import net.averak.cap.core.exception.BadRequestException
 import net.averak.cap.core.exception.BadRequestException.ErrorCode.PROJECT_DOCKER_IMAGE_IS_INVALID
 
 class DockerImage(
-    val url: String,
+    val repositoryName: String,
     val tag: String,
 ) {
 
     init {
-        if (url.length !in 1..100 || tag.length !in 1..100) {
+        if (repositoryName.length !in 1..100 || tag.length !in 1..100) {
             throw BadRequestException(PROJECT_DOCKER_IMAGE_IS_INVALID)
         }
     }
