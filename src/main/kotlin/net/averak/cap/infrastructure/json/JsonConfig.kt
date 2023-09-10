@@ -1,4 +1,4 @@
-package net.averak.cap.core.config
+package net.averak.cap.infrastructure.json
 
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer
@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration
 import java.time.format.DateTimeFormatter
 
 @Configuration
-open class JacksonConfig {
+open class JsonConfig {
 
     @Bean
     open fun jackson2ObjectMapperBuilderCustomizer(): Jackson2ObjectMapperBuilderCustomizer {

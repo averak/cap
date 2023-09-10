@@ -1,4 +1,4 @@
-package net.averak.cap.core.config
+package net.averak.cap.infrastructure.docker
 
 import com.github.dockerjava.api.DockerClient
 import com.github.dockerjava.core.DefaultDockerClientConfig

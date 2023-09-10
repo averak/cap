@@ -10,6 +10,11 @@ spring:
     redis:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -64,5 +69,6 @@ ip-address-whitelist:
   healthcheck-api:
     - 127.0.0.1
     - ::1
+
 docker:
   host: ${DOCKER_HOST:tcp://localhost:2375}
