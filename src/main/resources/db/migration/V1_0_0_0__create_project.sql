@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `project`
     `docker_image_tag`                VARCHAR(255) NOT NULL,
     `container_environment_variables` JSON         NOT NULL,
     `container_port`                  INT UNSIGNED NOT NULL,
-    `host_port`                       INT UNSIGNED NOT NULL,
+    `host_port`                       INT UNSIGNED NULL,
     `is_deleted`                      BOOLEAN      NOT NULL DEFAULT FALSE,
     `created_at`                      DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at`                      DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

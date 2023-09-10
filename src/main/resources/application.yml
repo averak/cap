@@ -1,4 +1,6 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
   datasource:
     url: ${MYSQL_URL:jdbc:mysql://localhost:3306/db?useSSL=false&allowPublicKeyRetrieval=true&enabledTLSProtocols=TLSv1.2}
     username: ${MYSQL_USERNAME:db}

@@ -1,6 +1,7 @@
 package net.averak.cap.adapter.dao.entity.base;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class ProjectEntity {
     /**
@@ -60,7 +61,7 @@ public class ProjectEntity {
      *
      * @mbg.generated
      */
-    @Nonnull
+    @Nullable
     private Integer hostPort;
 
     /**

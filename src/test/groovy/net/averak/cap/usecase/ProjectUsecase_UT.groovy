@@ -61,7 +61,7 @@ class ProjectUsecase_UT extends AbstractUsecase_UT {
         this.sut.createProject(project)
 
         then:
-        1 * this.projectRepository.existsByName(project.name) >> false
+        1 * this.projectService.isNameAlreadyUsed(project.name) >> false
         1 * this.projectRepository.save(project)
     }
 
@@ -73,7 +73,7 @@ class ProjectUsecase_UT extends AbstractUsecase_UT {
         this.sut.createProject(project)
 
         then:
-        1 * this.projectRepository.existsByName(project.name) >> true
+        1 * this.projectService.isNameAlreadyUsed(project.name) >> true
 
         final exception = thrown(ConflictException)
         exception.errorCode == PROJECT_NAME_IS_ALREADY_USED
@@ -114,7 +114,7 @@ class ProjectUsecase_UT extends AbstractUsecase_UT {
 
         then:
         1 * this.projectRepository.findById(project.id) >> Faker.fake(Project)
-        1 * this.projectRepository.existsByName(project.name) >> true
+        1 * this.projectService.isNameAlreadyUsed(project.name) >> true
 
         final exception = thrown(ConflictException)
         exception.errorCode == PROJECT_NAME_IS_ALREADY_USED

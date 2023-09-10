@@ -18,7 +18,7 @@ class ProjectFactory {
                 ProjectName(entity.name),
                 DockerImage(entity.dockerImageRepositoryName, entity.dockerImageTag),
                 ContainerPort(entity.containerPort),
-                HostPort(entity.hostPort),
+                if (entity.hostPort != null) HostPort(entity.hostPort) else null,
                 JsonUtils.fromJson(
                     entity.containerEnvironmentVariables,
                     ContainerEnvironmentVariablesJson::class.java
@@ -36,8 +36,7 @@ class ProjectFactory {
                 ProjectName(requestBody.name),
                 DockerImage(requestBody.dockerImage.repositoryName, requestBody.dockerImage.tag),
                 ContainerPort(requestBody.containerPort),
-                // TODO: ポートを割り当てること
-                HostPort(HostPort.MIN),
+                null,
                 requestBody.containerEnvironmentVariables.map {
                     ContainerEnvironmentVariable(it.name, it.value, it.isSecret)
                 },

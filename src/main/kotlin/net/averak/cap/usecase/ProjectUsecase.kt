@@ -3,6 +3,7 @@ package net.averak.cap.usecase
 import net.averak.cap.core.exception.ConflictException
 import net.averak.cap.core.exception.ConflictException.ErrorCode.PROJECT_NAME_IS_ALREADY_USED
 import net.averak.cap.core.exception.NotFoundException
+import net.averak.cap.domain.client.IDockerClient
 import net.averak.cap.domain.model.Project
 import net.averak.cap.domain.primitive.common.ID
 import net.averak.cap.domain.repository.IProjectRepository
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional
 open class ProjectUsecase(
     private val projectRepository: IProjectRepository,
     private val projectService: ProjectService,
+    private val dockerClient: IDockerClient,
 ) {
 
     @Transactional(readOnly = true)
