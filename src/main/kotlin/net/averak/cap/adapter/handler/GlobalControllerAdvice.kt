@@ -11,6 +11,7 @@ import net.averak.cap.core.exception.BadRequestException.ErrorCode.VALIDATION_ER
 import net.averak.cap.core.exception.InternalServerErrorException
 import net.averak.cap.core.exception.NotFoundException
 import net.averak.cap.core.exception.NotFoundException.ErrorCode.NOT_FOUND_API
+import net.averak.cap.core.logger.Logger
 import net.averak.cap.infrastructure.i18n.I18nUtils
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatusCode
@@ -29,7 +30,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @Hidden
 @Controller
 @RestControllerAdvice
-class GlobalControllerAdvice : ResponseEntityExceptionHandler() {
+class GlobalControllerAdvice(
+    private val customLogger: Logger,
+) : ResponseEntityExceptionHandler() {
 
     @RequestMapping("/api/**")
     fun handleApiNotFound(): ResponseEntity<Any> {
@@ -94,11 +97,19 @@ class GlobalControllerAdvice : ResponseEntityExceptionHandler() {
 
     private fun toResponseEntity(exception: Exception): ResponseEntity<Any> {
         return if (exception is AbstractException) {
+            if (exception.httpStatus.is4xxClientError) {
+                this.customLogger.warn(exception)
+            } else if (exception.httpStatus.is5xxServerError) {
+                this.customLogger.error(exception)
+            }
+
             val message = I18nUtils.getMessage(exception.errorCode.messageSourceKey)
             val body = ErrorResponse(exception.errorCode.name, message)
             ResponseEntity(body, exception.httpStatus)
         } else {
             val e = InternalServerErrorException(exception)
+            this.customLogger.error(e)
+
             val message = I18nUtils.getMessage(e.errorCode.messageSourceKey)
             val body = ErrorResponse(e.errorCode.name, message)
             ResponseEntity(body, e.httpStatus)

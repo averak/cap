@@ -12,6 +12,9 @@ bad_request:
     container_environment_variable_name_is_invalid: "不正な環境変数名が指定されました。"
   echo:
     message_is_invalid: "メッセージは1~100文字で指定する必要があります。"
+  maintenance:
+    time_is_invalid: "不正なメンテナンス時間が指定されました。"
+    memo_is_invalid: "メモは1~1000文字で指定する必要があります。"
   others:
     id_is_invalid: "不正なIDが指定されました。"
 unauthorized:

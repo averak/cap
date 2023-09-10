@@ -35,6 +35,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation:3.1.2")
     implementation("org.springframework.boot:spring-boot-starter-security:3.1.2")
     implementation("org.springframework.boot:spring-boot-starter-webflux:3.1.2")
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf:3.1.2")
     testImplementation("org.springframework.boot:spring-boot-starter-test:3.1.2")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:3.1.2")
 
