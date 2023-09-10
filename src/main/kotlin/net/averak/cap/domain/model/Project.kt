@@ -8,12 +8,16 @@ class Project(
     val name: ProjectName,
     val dockerImage: DockerImage,
     val containerPort: ContainerPort,
-    val hostPort: HostPort?,
+    var hostPort: HostPort?,
     val containerEnvironmentVariables: List<ContainerEnvironmentVariable>,
     val containerStatus: ContainerStatus,
     val cronJobs: List<CronJob>,
     var isDeleted: Boolean,
 ) {
+
+    fun allocateHostPort(port: HostPort) {
+        this.hostPort = port
+    }
 
     fun delete() {
         this.isDeleted = true

@@ -4,6 +4,6 @@ import net.averak.cap.domain.primitive.project.DockerImage
 
 interface IDockerClient {
 
-    fun pull(dockerImage: DockerImage)
+    fun pull(dockerImage: DockerImage, callback: () -> Unit)
 
 }

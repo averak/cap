@@ -14,7 +14,7 @@ class DockerClient(
     private val logger: Logger,
 ) : IDockerClient {
 
-    override fun pull(dockerImage: DockerImage) {
+    override fun pull(dockerImage: DockerImage, callback: () -> Unit) {
         val dockerImageLogSchema = DockerImageLogSchema(dockerImage.repositoryName, dockerImage.tag)
         this.logger.info("Start to pull docker image.", dockerImageLogSchema)
 
@@ -29,6 +29,7 @@ class DockerClient(
 
                 override fun onComplete() {
                     logger.info("Complete to pull docker image.", dockerImageLogSchema)
+                    callback()
                 }
             })
     }

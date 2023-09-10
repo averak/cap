@@ -18,4 +18,16 @@ class HostPort(val value: Int) {
             throw BadRequestException(PROJECT_HOST_PORT_IS_INVALID)
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is HostPort) return false
+
+        return value == other.value
+    }
+
+    override fun hashCode(): Int {
+        return value.hashCode()
+    }
+
 }

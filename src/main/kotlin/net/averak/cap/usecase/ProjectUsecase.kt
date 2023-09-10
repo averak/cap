@@ -37,8 +37,15 @@ open class ProjectUsecase(
 
         this.projectRepository.save(project)
 
-        // TODO: ホストポートを割り当てる
-        // TODO: コンテナを立ち上げる
+        // 常時起動させる必要のあるプロジェクトのコンテナを立ち上げる
+        // バッチジョブは実行時に pull & exec すれば良いので、ここでは何も行わない
+        this.dockerClient.pull(project.dockerImage) {
+            this.projectService.allocateHostPort(project)
+            this.projectRepository.save(project)
+
+            // TODO: #10 Dockerイメージの用意とポート割り当てが完了したので、コンテナを立ち上げる
+            // TODO: #10 無理にusecaseで非同期処理を行わず、RabbitMQを導入してはどうか
+        }
     }
 
     @Transactional
@@ -52,7 +59,7 @@ open class ProjectUsecase(
 
         this.projectRepository.save(project)
 
-        // TODO: コンテナを立ち上げる
+        // TODO: #10 コンテナを立ち上げる
     }
 
     @Transactional
@@ -62,7 +69,7 @@ open class ProjectUsecase(
         project.delete()
         this.projectRepository.save(project)
 
-        // TODO: コンテナを削除する
+        // TODO: #10 コンテナを削除する
     }
 
 }
