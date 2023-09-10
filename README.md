@@ -22,6 +22,7 @@ API ゲートウェイと異なり、以下の特徴を持ちます。
 - Spring Boot 3.0
 - MySQL 8.0
 - Redis 7.0
+- RabbitMQ 3.12
 - Docker Compose V2
 
 ### ビルド方法
