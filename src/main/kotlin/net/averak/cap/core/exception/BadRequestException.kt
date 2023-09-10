@@ -32,6 +32,11 @@ class BadRequestException(errorCode: ErrorCode) : AbstractException(HttpStatus.B
         // Echo
         ECHO_MESSAGE_IS_INVALID("bad_request.echo.message_is_invalid"),
 
+        // メンテナンス
+        MAINTENANCE_TIME_IS_INVALID("bad_request.maintenance.time_is_invalid"),
+
+        MAINTENANCE_MEMO_IS_INVALID("bad_request.maintenance.memo_is_invalid"),
+
         // その他
         ID_IS_INVALID("bad_request.others.id_is_invalid"),
 

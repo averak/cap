@@ -4,13 +4,15 @@ import net.averak.cap.domain.model.Echo
 import net.averak.cap.domain.primitive.echo.EchoMessage
 import net.averak.cap.domain.repository.IEchoRepository
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
-class EchoUsecase(
+open class EchoUsecase(
     private val echoRepository: IEchoRepository
 ) {
 
-    fun echo(message: EchoMessage): Echo {
+    @Transactional
+    open fun echo(message: EchoMessage): Echo {
         val echo = Echo(message)
         this.echoRepository.save(echo)
 
