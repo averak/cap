@@ -61,8 +61,12 @@ class ProjectUsecase_UT extends AbstractUsecase_UT {
         this.sut.createProject(project)
 
         then:
-        1 * this.projectService.isNameAlreadyUsed(project.name) >> false
+        with(this.projectService) {
+            1 * it.isNameAlreadyUsed(project.name) >> false
+            1 * it.allocateHostPort(project)
+        }
         1 * this.projectRepository.save(project)
+        1 * this.pubSubClient.launchProjectContainer(project)
     }
 
     def "createProject: 異常系 プロジェクト名が既に使用されている場合は409エラー"() {
@@ -89,6 +93,7 @@ class ProjectUsecase_UT extends AbstractUsecase_UT {
         then:
         1 * this.projectRepository.findById(project.id) >> project
         1 * this.projectRepository.save(project)
+        1 * this.pubSubClient.launchProjectContainer(project)
     }
 
     def "editProject: 異常系 プロジェクトが存在しない場合は404エラー"() {

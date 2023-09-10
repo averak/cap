@@ -3,7 +3,7 @@ package net.averak.cap.domain.primitive.project
 import net.averak.cap.core.exception.BadRequestException
 import net.averak.cap.core.exception.BadRequestException.ErrorCode.PROJECT_CONTAINER_ENVIRONMENT_VARIABLE_NAME_IS_INVALID
 
-class ContainerEnvironmentVariable(
+data class ContainerEnvironmentVariable(
     val name: String,
     val value: String,
     val isSecret: Boolean,

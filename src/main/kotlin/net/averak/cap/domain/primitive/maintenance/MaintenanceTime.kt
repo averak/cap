@@ -4,7 +4,7 @@ import net.averak.cap.core.exception.BadRequestException
 import net.averak.cap.core.exception.BadRequestException.ErrorCode.MAINTENANCE_TIME_IS_INVALID
 import java.time.LocalDateTime
 
-class MaintenanceTime(
+data class MaintenanceTime(
     val openAt: LocalDateTime,
     val closeAt: LocalDateTime,
 ) {

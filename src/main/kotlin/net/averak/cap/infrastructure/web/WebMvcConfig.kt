@@ -1,7 +1,7 @@
-package net.averak.cap.core.config
+package net.averak.cap.infrastructure.web
 
-import net.averak.cap.infrastructure.interceptor.IRequestInterceptor
-import net.averak.cap.infrastructure.interceptor.InterceptorPriority
+import net.averak.cap.adapter.interceptor.IRequestInterceptor
+import net.averak.cap.adapter.interceptor.InterceptorPriority
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry

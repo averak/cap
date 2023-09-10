@@ -2,6 +2,7 @@ package net.averak.cap.usecase
 
 import net.averak.cap.AbstractSpec
 import net.averak.cap.domain.client.IDockerClient
+import net.averak.cap.domain.client.IPubSubClient
 import net.averak.cap.domain.repository.IEchoRepository
 import net.averak.cap.domain.repository.IMaintenanceRepository
 import net.averak.cap.domain.repository.IProjectRepository
@@ -24,5 +25,8 @@ abstract class AbstractUsecase_UT extends AbstractSpec {
 
     @SpringBean
     IDockerClient dockerClient = Mock()
+
+    @SpringBean
+    IPubSubClient pubSubClient = Mock()
 
 }

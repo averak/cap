@@ -16,24 +16,20 @@ open class ProjectService(
         return this.projectRepository.existsByName(name)
     }
 
-    open fun allocateHostPort(project: Project) {
-        // TODO: #10 テストを書くこと
-        // 現時点でプロセスが割り当てられていないポートは、別プロジェクトに予約されている可能性があるので、割り当て手順がやや複雑になる
-        val containersUsedHostPorts = this.projectRepository.findAll().mapNotNull(Project::hostPort)
+    open fun allocateHostPort(project: Project): HostPort? {
+        val usedHostPorts = this.projectRepository.findAll().mapNotNull(Project::hostPort)
 
-        var cursor = HostPort.MIN
-        val pageSize = 10
-        while (cursor + pageSize < HostPort.MAX) {
-            val unusedPort = PortUtils.findUnusedPorts(cursor, pageSize)
-                .map(::HostPort)
-                .firstOrNull { containersUsedHostPorts.contains(it).not() }
-            if (unusedPort != null) {
-                project.allocateHostPort(unusedPort)
-                break
+        // 現時点でプロセスが割り当てられていない && 別プロジェクトが予約していないポートを検索する
+        (HostPort.MIN..HostPort.MAX)
+            .map(::HostPort)
+            .filter { !usedHostPorts.contains(it) }
+            .forEach {
+                if (PortUtils.isUnused(it.value)) {
+                    project.allocateHostPort(it)
+                    return@allocateHostPort it
+                }
             }
 
-            cursor += pageSize
-        }
+        return null
     }
-
 }

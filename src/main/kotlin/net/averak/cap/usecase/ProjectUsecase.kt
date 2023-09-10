@@ -4,6 +4,7 @@ import net.averak.cap.core.exception.ConflictException
 import net.averak.cap.core.exception.ConflictException.ErrorCode.PROJECT_NAME_IS_ALREADY_USED
 import net.averak.cap.core.exception.NotFoundException
 import net.averak.cap.domain.client.IDockerClient
+import net.averak.cap.domain.client.IPubSubClient
 import net.averak.cap.domain.model.Project
 import net.averak.cap.domain.primitive.common.ID
 import net.averak.cap.domain.repository.IProjectRepository
@@ -16,6 +17,7 @@ open class ProjectUsecase(
     private val projectRepository: IProjectRepository,
     private val projectService: ProjectService,
     private val dockerClient: IDockerClient,
+    private val pubSubClient: IPubSubClient,
 ) {
 
     @Transactional(readOnly = true)
@@ -35,17 +37,10 @@ open class ProjectUsecase(
             throw ConflictException(PROJECT_NAME_IS_ALREADY_USED)
         }
 
+        this.projectService.allocateHostPort(project)
         this.projectRepository.save(project)
 
-        // 常時起動させる必要のあるプロジェクトのコンテナを立ち上げる
-        // バッチジョブは実行時に pull & exec すれば良いので、ここでは何も行わない
-        this.dockerClient.pull(project.dockerImage) {
-            this.projectService.allocateHostPort(project)
-            this.projectRepository.save(project)
-
-            // TODO: #10 Dockerイメージの用意とポート割り当てが完了したので、コンテナを立ち上げる
-            // TODO: #10 無理にusecaseで非同期処理を行わず、RabbitMQを導入してはどうか
-        }
+        this.pubSubClient.launchProjectContainer(project)
     }
 
     @Transactional
@@ -58,8 +53,7 @@ open class ProjectUsecase(
         }
 
         this.projectRepository.save(project)
-
-        // TODO: #10 コンテナを立ち上げる
+        this.pubSubClient.launchProjectContainer(project)
     }
 
     @Transactional
@@ -69,7 +63,13 @@ open class ProjectUsecase(
         project.delete()
         this.projectRepository.save(project)
 
-        // TODO: #10 コンテナを削除する
+        // TODO: #24 コンテナを停止、削除する
+    }
+
+    open fun launchProjectContainer(project: Project) {
+        this.dockerClient.pull(project.dockerImage) {
+            // TODO: #24 コンテナを立ち上げる
+        }
     }
 
 }

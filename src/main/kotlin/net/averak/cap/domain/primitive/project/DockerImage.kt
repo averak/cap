@@ -3,7 +3,7 @@ package net.averak.cap.domain.primitive.project
 import net.averak.cap.core.exception.BadRequestException
 import net.averak.cap.core.exception.BadRequestException.ErrorCode.PROJECT_DOCKER_IMAGE_IS_INVALID
 
-class DockerImage(
+data class DockerImage(
     val repositoryName: String,
     val tag: String,
 ) {

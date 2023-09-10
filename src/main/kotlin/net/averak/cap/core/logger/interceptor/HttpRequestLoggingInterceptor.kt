@@ -1,9 +1,9 @@
 package net.averak.cap.core.logger.interceptor
 
 import jakarta.servlet.http.HttpServletRequest
+import net.averak.cap.adapter.interceptor.RequestIdInterceptor
 import net.averak.cap.core.logger.schema.ILogSchema
 import net.averak.cap.core.logger.schema.ReachedHttpLogSchema
-import net.averak.cap.infrastructure.interceptor.RequestIdInterceptor
 import org.springframework.stereotype.Component
 
 @Component
