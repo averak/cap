@@ -1,11 +1,20 @@
-FROM public.ecr.aws/docker/library/amazoncorretto:17 as build-stage
+FROM node:18 as frontend-build-stage
+
+WORKDIR /app
+COPY client /app/
+
+RUN npm install
+RUN npm run build:prod
+
+FROM amazoncorretto:17 as backend-build-stage
 
 WORKDIR /app
 COPY . /app/
+COPY --from=frontend-build-stage /app/dist /app/src/main/resources/static
 
 RUN ./gradlew bootJar
 
-FROM public.ecr.aws/docker/library/amazoncorretto:17
+FROM amazoncorretto:17
 
-COPY --from=build-stage /app/build/libs/*.jar app.jar
+COPY --from=backend-build-stage /app/build/libs/*.jar app.jar
 ENTRYPOINT ["java","-jar","app.jar"]
