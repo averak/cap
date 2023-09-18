@@ -3,6 +3,8 @@ package net.averak.cap.usecase
 import net.averak.cap.core.exception.ConflictException
 import net.averak.cap.core.exception.ConflictException.ErrorCode.PROJECT_NAME_IS_ALREADY_USED
 import net.averak.cap.core.exception.NotFoundException
+import net.averak.cap.domain.client.IDockerClient
+import net.averak.cap.domain.client.IPubSubClient
 import net.averak.cap.domain.model.Project
 import net.averak.cap.domain.primitive.common.ID
 import net.averak.cap.domain.repository.IProjectRepository
@@ -14,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional
 open class ProjectUsecase(
     private val projectRepository: IProjectRepository,
     private val projectService: ProjectService,
+    private val dockerClient: IDockerClient,
+    private val pubSubClient: IPubSubClient,
 ) {
 
     @Transactional(readOnly = true)
@@ -33,10 +37,10 @@ open class ProjectUsecase(
             throw ConflictException(PROJECT_NAME_IS_ALREADY_USED)
         }
 
+        this.projectService.allocateHostPort(project)
         this.projectRepository.save(project)
 
-        // TODO: ホストポートを割り当てる
-        // TODO: コンテナを立ち上げる
+        this.pubSubClient.launchProjectContainer(project)
     }
 
     @Transactional
@@ -49,8 +53,7 @@ open class ProjectUsecase(
         }
 
         this.projectRepository.save(project)
-
-        // TODO: コンテナを立ち上げる
+        this.pubSubClient.launchProjectContainer(project)
     }
 
     @Transactional
@@ -60,7 +63,13 @@ open class ProjectUsecase(
         project.delete()
         this.projectRepository.save(project)
 
-        // TODO: コンテナを削除する
+        // TODO: #24 コンテナを停止、削除する
+    }
+
+    open fun launchProjectContainer(project: Project) {
+        this.dockerClient.pull(project.dockerImage) {
+            // TODO: #24 コンテナを立ち上げる
+        }
     }
 
 }

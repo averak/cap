@@ -4,7 +4,10 @@ import net.averak.cap.AbstractDatabaseSpec
 import net.averak.cap.adapter.handler.schema.response.ErrorResponse
 import net.averak.cap.core.exception.AbstractException
 import net.averak.cap.core.utils.JsonUtils
+import net.averak.cap.domain.client.IDockerClient
+import net.averak.cap.domain.client.IPubSubClient
 import net.averak.cap.infrastructure.i18n.I18nUtils
+import org.spockframework.spring.SpringBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -43,6 +46,12 @@ abstract class AbstractController_IT extends AbstractDatabaseSpec {
 
     @Shared
     protected Optional<Authentication> authentication = Optional.empty()
+
+    @SpringBean
+    IPubSubClient pubSubClient = Mock()
+
+    @SpringBean
+    IDockerClient dockerClient = Mock()
 
     /**
      * GET request

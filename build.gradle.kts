@@ -36,6 +36,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security:3.1.2")
     implementation("org.springframework.boot:spring-boot-starter-webflux:3.1.2")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf:3.1.2")
+    implementation("org.springframework.boot:spring-boot-starter-amqp:3.1.2")
     testImplementation("org.springframework.boot:spring-boot-starter-test:3.1.2")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:3.1.2")
 
@@ -57,6 +58,10 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-starter-common:2.0.4")
     implementation("com.github.therapi:therapi-runtime-javadoc:0.15.0")
     annotationProcessor("com.github.therapi:therapi-runtime-javadoc-scribe:0.15.0")
+
+    // docker
+    implementation("com.github.docker-java:docker-java:3.3.3")
+    implementation("com.github.docker-java:docker-java-transport-httpclient5:3.3.3")
 
     // logging
     implementation("ch.qos.logback:logback-classic:1.4.8")

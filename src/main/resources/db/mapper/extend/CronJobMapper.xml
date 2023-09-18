@@ -6,7 +6,7 @@
         project_id,
         expression,
         command,
-        docker_image_url,
+        docker_image_repository_name,
         docker_image_tag,
         container_environment_variables) VALUES
         <foreach collection="collection" item="item" separator=",">
@@ -15,7 +15,7 @@
             #{item.projectId},
             #{item.expression},
             #{item.command},
-            #{item.dockerImageUrl},
+            #{item.dockerImageRepositoryName},
             #{item.dockerImageTag},
             #{item.containerEnvironmentVariables}
             )

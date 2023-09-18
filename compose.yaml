@@ -1,7 +1,6 @@
 services:
   mysql-app:
     build: ./docker/mysql
-    restart: always
     environment:
       MYSQL_DATABASE: db
       MYSQL_USER: db
@@ -22,7 +21,6 @@ services:
 
   mysql-test:
     build: ./docker/mysql
-    restart: always
     environment:
       MYSQL_DATABASE: db
       MYSQL_USER: db
@@ -39,3 +37,15 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  rabbitmq:
+    build: ./docker/rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+      - 5672:5672
+      - 15672:15672
+    user: 1000:1000
+    volumes:
+      - ./docker/rabbitmq/data:/var/lib/rabbitmq

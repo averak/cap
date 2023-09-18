@@ -51,7 +51,7 @@ class ProjectController_IT extends AbstractController_IT {
         then:
         response.projects*.id == projectEntities*.id
         response.projects*.name == projectEntities*.name
-        response.projects*.dockerImage.url == projectEntities*.dockerImageUrl
+        response.projects*.dockerImage.repositoryName == projectEntities*.dockerImageRepositoryName
         response.projects*.dockerImage.tag == projectEntities*.dockerImageTag
         response.projects*.containerPort == projectEntities*.containerPort
         response.projects*.hostPort == projectEntities*.hostPort
@@ -60,6 +60,7 @@ class ProjectController_IT extends AbstractController_IT {
             it*.id == cronJobEntities[0..1]*.id
         }
         with(response.projects[1].cronJobs) {
+            it*.id == [cronJobEntities[2]]*.id
             it*.id == [cronJobEntities[2]]*.id
         }
         with(response.projects[2].cronJobs) {
@@ -91,7 +92,7 @@ class ProjectController_IT extends AbstractController_IT {
         response.id == projectEntity.id
         response.id == projectEntity.id
         response.name == projectEntity.name
-        response.dockerImage.url == projectEntity.dockerImageUrl
+        response.dockerImage.repositoryName == projectEntity.dockerImageRepositoryName
         response.dockerImage.tag == projectEntity.dockerImageTag
         response.containerPort == projectEntity.containerPort
         response.hostPort == projectEntity.hostPort
@@ -126,16 +127,15 @@ class ProjectController_IT extends AbstractController_IT {
         then:
         with(sql.firstRow("SELECT * FROM project")) {
             it.name == requestBody.name
-            it.docker_image_url == requestBody.dockerImage.url
+            it.docker_image_repository_name == requestBody.dockerImage.repositoryName
             it.docker_image_tag == requestBody.dockerImage.tag
             it.container_port == requestBody.containerPort
-            it.host_port == requestBody.hostPort
         }
 
         with(sql.rows("SELECT * FROM cron_job")) {
             it.expression == requestBody.cronJobs*.expression
             it.command == requestBody.cronJobs*.command
-            it.docker_image_url == requestBody.cronJobs*.dockerImage*.url
+            it.docker_image_repository_name == requestBody.cronJobs*.dockerImage*.repositoryName
             it.docker_image_tag == requestBody.cronJobs*.dockerImage*.tag
         }
     }
@@ -177,16 +177,15 @@ class ProjectController_IT extends AbstractController_IT {
         sql.rows("SELECT * FROM project").size() == 1
         with(sql.firstRow("SELECT * FROM project WHERE id=:id", [id: id.value])) {
             it.name == requestBody.name
-            it.docker_image_url == requestBody.dockerImage.url
+            it.docker_image_repository_name == requestBody.dockerImage.repositoryName
             it.docker_image_tag == requestBody.dockerImage.tag
             it.container_port == requestBody.containerPort
-            it.host_port == requestBody.hostPort
         }
 
         with(sql.rows("SELECT * FROM cron_job WHERE project_id=:project_id", [project_id: id.value])) {
             it.expression == requestBody.cronJobs*.expression
             it.command == requestBody.cronJobs*.command
-            it.docker_image_url == requestBody.cronJobs*.dockerImage*.url
+            it.docker_image_repository_name == requestBody.cronJobs*.dockerImage*.repositoryName
             it.docker_image_tag == requestBody.cronJobs*.dockerImage*.tag
         }
     }

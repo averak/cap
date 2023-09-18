@@ -4,13 +4,12 @@ class ProjectUpsertRequest(
     val name: String,
     val dockerImage: DockerImageRequest,
     val containerPort: Int,
-    val hostPort: Int,
     val containerEnvironmentVariables: List<ContainerEnvironmentVariableRequest>,
     val cronJobs: List<CronJobRequest>,
 ) {
 
     class DockerImageRequest(
-        val url: String,
+        val repositoryName: String,
         val tag: String,
     )
 

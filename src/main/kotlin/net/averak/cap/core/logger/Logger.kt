@@ -73,7 +73,7 @@ class Logger(
     private fun convertLogSchemasToStructuredArgument(logSchemas: List<ILogSchema>): StructuredArgument {
         val logFieldMap = HashMap<String, Any>()
         logSchemas.forEach {
-            logFieldMap[it.getFieldKey()] = it
+            logFieldMap[it.fieldKey()] = it
         }
         return entries(logFieldMap);
     }

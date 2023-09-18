@@ -4,7 +4,7 @@ import net.averak.cap.core.exception.BadRequestException
 import net.averak.cap.core.exception.BadRequestException.ErrorCode.ID_IS_INVALID
 import net.averak.cap.core.utils.IDUtils
 
-class ID(val value: String) {
+data class ID(val value: String) {
 
     init {
         if (value.length != 26) {
@@ -13,16 +13,5 @@ class ID(val value: String) {
     }
 
     constructor() : this(IDUtils.generateULID())
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other !is ID) return false
-
-        return value == other.value
-    }
-
-    override fun hashCode(): Int {
-        return value.hashCode()
-    }
 
 }

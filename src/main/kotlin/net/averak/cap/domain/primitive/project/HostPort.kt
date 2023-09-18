@@ -3,7 +3,7 @@ package net.averak.cap.domain.primitive.project
 import net.averak.cap.core.exception.BadRequestException
 import net.averak.cap.core.exception.BadRequestException.ErrorCode.PROJECT_HOST_PORT_IS_INVALID
 
-class HostPort(val value: Int) {
+data class HostPort(val value: Int) {
 
     companion object {
 
@@ -18,4 +18,5 @@ class HostPort(val value: Int) {
             throw BadRequestException(PROJECT_HOST_PORT_IS_INVALID)
         }
     }
+
 }

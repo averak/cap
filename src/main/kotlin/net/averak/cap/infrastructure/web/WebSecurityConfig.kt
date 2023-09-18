@@ -1,4 +1,4 @@
-package net.averak.cap.core.config
+package net.averak.cap.infrastructure.web
 
 import net.averak.cap.core.exception.UnauthorizedException
 import net.averak.cap.core.exception.UnauthorizedException.ErrorCode.NOT_LOGGED_IN

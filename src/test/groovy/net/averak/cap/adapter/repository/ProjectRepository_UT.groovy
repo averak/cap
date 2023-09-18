@@ -36,7 +36,7 @@ class ProjectRepository_UT extends AbstractDatabaseSpec {
         then:
         result*.id.value == projectEntities[0..2]*.id
         result*.name.value == projectEntities[0..2]*.name
-        result*.dockerImage.url == projectEntities[0..2]*.dockerImageUrl
+        result*.dockerImage.repositoryName == projectEntities[0..2]*.dockerImageRepositoryName
         result*.dockerImage.tag == projectEntities[0..2]*.dockerImageTag
         result*.containerPort.value == projectEntities[0..2]*.containerPort
         result*.hostPort.value == projectEntities[0..2]*.hostPort
@@ -70,7 +70,7 @@ class ProjectRepository_UT extends AbstractDatabaseSpec {
         then:
         result.id.value == projectEntities[0].id
         result.name.value == projectEntities[0].name
-        result.dockerImage.url == projectEntities[0].dockerImageUrl
+        result.dockerImage.repositoryName == projectEntities[0].dockerImageRepositoryName
         result.dockerImage.tag == projectEntities[0].dockerImageTag
         result.containerPort.value == projectEntities[0].containerPort
         result.hostPort.value == projectEntities[0].hostPort
@@ -107,7 +107,7 @@ class ProjectRepository_UT extends AbstractDatabaseSpec {
         with(sql.firstRow("SELECT * FROM project WHERE id=:id", [id: project.id.value])) {
             it.id == project.id.value
             it.name == project.name.value
-            it.docker_image_url == project.dockerImage.url
+            it.docker_image_repository_name == project.dockerImage.repositoryName
             it.docker_image_tag == project.dockerImage.tag
             it.container_port == project.containerPort.value
             it.host_port == project.hostPort.value
@@ -117,7 +117,7 @@ class ProjectRepository_UT extends AbstractDatabaseSpec {
             it.id == project.cronJobs*.id.value
             it.expression == project.cronJobs*.expression.value
             it.command == project.cronJobs*.command.value
-            it.docker_image_url == project.cronJobs*.dockerImage.url
+            it.docker_image_repository_name == project.cronJobs*.dockerImage.repositoryName
             it.docker_image_tag == project.cronJobs*.dockerImage.tag
         }
     }
@@ -140,7 +140,7 @@ class ProjectRepository_UT extends AbstractDatabaseSpec {
         with(sql.firstRow("SELECT * FROM project WHERE id=:id", [id: project.id.value])) {
             it.id == project.id.value
             it.name == project.name.value
-            it.docker_image_url == project.dockerImage.url
+            it.docker_image_repository_name == project.dockerImage.repositoryName
             it.docker_image_tag == project.dockerImage.tag
             it.container_port == project.containerPort.value
             it.host_port == project.hostPort.value
@@ -150,7 +150,7 @@ class ProjectRepository_UT extends AbstractDatabaseSpec {
             it.id == project.cronJobs*.id.value
             it.expression == project.cronJobs*.expression.value
             it.command == project.cronJobs*.command.value
-            it.docker_image_url == project.cronJobs*.dockerImage.url
+            it.docker_image_repository_name == project.cronJobs*.dockerImage.repositoryName
             it.docker_image_tag == project.cronJobs*.dockerImage.tag
         }
     }

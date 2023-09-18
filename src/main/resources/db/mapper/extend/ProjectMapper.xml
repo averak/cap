@@ -18,7 +18,7 @@
                         cj.project_id                      AS cron_job__project_id,
                         cj.expression                      AS cron_job__expression,
                         cj.command                         AS cron_job__command,
-                        cj.docker_image_url                AS cron_job__docker_image_url,
+                        cj.docker_image_repository_name    AS cron_job__docker_image_repository_name,
                         cj.docker_image_tag                AS cron_job__docker_image_tag,
                         cj.container_environment_variables AS cron_job__container_environment_variables
         FROM project
@@ -33,7 +33,7 @@
                         cj.project_id                      AS cron_job__project_id,
                         cj.expression                      AS cron_job__expression,
                         cj.command                         AS cron_job__command,
-                        cj.docker_image_url                AS cron_job__docker_image_url,
+                        cj.docker_image_repository_name    AS cron_job__docker_image_repository_name,
                         cj.docker_image_tag                AS cron_job__docker_image_tag,
                         cj.container_environment_variables AS cron_job__container_environment_variables
         FROM project
@@ -45,7 +45,7 @@
     <insert id="upsert" parameterType="net.averak.cap.adapter.dao.entity.base.ProjectEntity">
         INSERT INTO project (id,
                              name,
-                             docker_image_url,
+                             docker_image_repository_name,
                              docker_image_tag,
                              container_port,
                              host_port,
@@ -53,7 +53,7 @@
                              container_environment_variables)
         values (#{id},
                 #{name},
-                #{dockerImageUrl},
+                #{dockerImageRepositoryName},
                 #{dockerImageTag},
                 #{containerPort},
                 #{hostPort},
@@ -61,7 +61,7 @@
                 #{containerEnvironmentVariables})
         ON DUPLICATE KEY UPDATE id                              = VALUES(id),
                                 name                            = VALUES(name),
-                                docker_image_url                = VALUES(docker_image_url),
+                                docker_image_repository_name    = VALUES(docker_image_repository_name),
                                 docker_image_tag                = VALUES(docker_image_tag),
                                 container_port                  = VALUES(container_port),
                                 host_port                       = VALUES(host_port),

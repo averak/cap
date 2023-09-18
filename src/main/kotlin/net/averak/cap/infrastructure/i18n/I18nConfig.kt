@@ -1,4 +1,4 @@
-package net.averak.cap.core.config
+package net.averak.cap.infrastructure.i18n
 
 import net.rakugakibox.util.YamlResourceBundle
 import org.springframework.context.MessageSource
@@ -8,7 +8,7 @@ import org.springframework.context.support.ResourceBundleMessageSource
 import java.util.*
 
 @Configuration
-open class MessageSourceConfig {
+open class I18nConfig {
 
     @Bean
     open fun messageSource(): MessageSource {

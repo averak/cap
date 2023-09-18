@@ -1,4 +1,4 @@
-package net.averak.cap.infrastructure.interceptor
+package net.averak.cap.adapter.interceptor
 
 enum class InterceptorPriority {
 
